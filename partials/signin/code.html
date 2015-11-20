@@ -1,0 +1,13 @@
+<div class="panel-body">
+    <form id="loginFrm" role="form" novalidate>
+        <fieldset>
+            <div class="form-group">
+                <input class="form-control" ng-model="code" placeholder="Auth Code" id="code" name="code" type="text" autofocus>
+            </div>
+            <button style="background-color: #0978b8" ng-click="doRequestSMS()" id="requestSms" class="btn btn-lg btn-success btn-block">Request SMS</button>
+            <button style="background-color: #0978b8" ng-click="doLogin()" id="login" class="btn btn-lg btn-success btn-block">Proceed</button>
+            <br ng-show="loginerror"/>
+            <p class="alert alert-danger" ng-show="loginerror">Login failed. Try again.</p>
+        </fieldset>
+    </form>
+</div>

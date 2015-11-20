@@ -1,0 +1,12 @@
+<div class="panel-body">
+    <form name="passFrm" id="passFrm" role="form">
+        <fieldset>
+            <div class="form-group">
+                <input class="form-control" ng-model="email" placeholder="Your E-mail" id="email" name="email" type="text">
+            </div>
+            <button ng-model="button" ng-disabled="bdisabled" ng-click="doConfirm()" id="reset" class="btn btn-primary btn-lg btn-block">Confirm Account</button>
+            <br ng-show="reseterror"/>
+            <div class="alert alert-danger" style="margin-top: 0px; margin-bottom: 0px;" ng-show="reseterror">Unable to confirm your account.</div>
+        </fieldset>
+    </form>
+</div>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="panel" ng-controller="panelController">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Bushidō Manangement And Analytics</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="css/background.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <canvas id="canvas" height="971" width="1920"></canvas>
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: #1574A8">
+            <div class="navbar-header" style="background-color: #1574A8">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="wallet.html" style="color:#ffffff">Bushidō Manangement And Analytics</a>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="background-color: transparent">
+                        <i class="fa fa-user fa-fw" style="color: #ffffff"></i>  <i class="fa fa-caret-down" style="color: #ffffff"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li class="divider"></li>
+                        <li><a href="login.html?env={{env}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="page-wrapper" style="margin: 0 0 0 0">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header" style="color:#ffffff">Welcome, {{user.username}}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12" align="center">
+                    <p style="color: #ffffff">{{message}}</p>
+                    <button ng-repeat="w in wallets" class="btn btn-default btn-lg" style="color: #1574a8" ng-click="open(w)">{{w.key}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/lib/jquery/jquery.js"></script>
+    <script src="js/lib/bootstrap/bootstrap.min.js"></script>
+    <script src="js/lib/plugins/metisMenu/metisMenu.min.js"></script>
+    <script src="js/lib/sb-admin-2.js"></script>
+    <script src="js/lib/sockjs-0.3.4.js"></script>
+    <script src="js/lib/stomp.js"></script>
+    <script src="js/lib/angular/angular.min.js"></script>
+    <script src="js/lib/angular/angular-cookies.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/panel.js"></script>
+    <script src="js/background.js"></script>
+</body>
+</html>

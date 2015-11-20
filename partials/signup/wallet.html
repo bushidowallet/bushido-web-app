@@ -1,0 +1,17 @@
+<div class="panel-body">
+    <form id="walletFrm" role="form" novalidate>
+        <fieldset>
+            <div class="form-group">
+                <label>Wallet Id (at least 8 characters)</label>
+                <input class="form-control" ng-model="walletId" placeholder="Enter a new Wallet Id">
+            </div>
+            <div class="form-group">
+                <label>Wallet Entropy (at least 20 characters)</label>
+                <input class="form-control" ng-model="walletEntropy" placeholder="Provide random words and save them">
+            </div>
+            <button style="background-color: #0978b8" ng-click="doCreateWallet()" class="btn btn-lg btn-success btn-block">Create Wallet</button>
+        </fieldset>
+    </form>
+    <br ng-show="walletError"/>
+    <div ng-show="walletError" style="color: #a94442" align="center">{{errorMessage}}</div>
+</div>

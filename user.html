@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="user" ng-controller="userController">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Bushidō Manangement And Analytics</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="css/background.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+</head>
+<body>
+<div id="wrapper">
+    <canvas id="canvas" height="971" width="1920"></canvas>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: #1574A8">
+        <div class="navbar-header" style="background-color: #1574A8">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="wallet.html" style="color:#ffffff">Bushidō Manangement And Analytics</a>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="background-color: transparent">
+                    <i class="fa fa-list fa-fw" style="color: #ffffff"></i>  <i class="fa fa-caret-down" style="color: #ffffff"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-messages">
+                    <p align="center" style="padding-top: 8px;">Your wallets: </p>
+                    <li ng-repeat="wallet in wallets">
+                        <a href="#" ng-click="open(wallet)">
+                            <div>
+                                <i class="fa fa-money fa-fw"></i> <strong>{{wallet.key}}</strong>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="background-color: transparent">
+                    <i class="fa fa-user fa-fw" style="color: #ffffff"></i>  <i class="fa fa-caret-down" style="color: #ffffff"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="settings.html"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="user.html"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="login.html?env={{env}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="wallet.html"><i class="fa fa-dashboard fa-fw"></i> Your Wallet</a>
+                    </li>
+                    <li>
+                        <a href="transactions.html"><i class="fa fa-table fa-fw"></i> Your Transactions</a>
+                    </li>
+                    <li>
+                        <a href="export.html"><i class="fa fa-key fa-fw"></i> Export Keys</a>
+                    </li>
+                    <li>
+                        <a href="documentation.html"><i class="fa fa-info-circle fa-fw"></i> Documentation</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header" style="color:#ffffff">Your Profile</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label>Username</label>
+                                        <input disabled class="form-control" ng-model="user.username">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Organization</label>
+                                        <input disabled class="form-control" ng-model="user.organization">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>E-mail</label>
+                                        <input disabled class="form-control" ng-model="user.email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Country Code</label>
+                                        <input disabled class="form-control" ng-model="user.countryCode">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone</label>
+                                        <input disabled class="form-control" ng-model="user.phone">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label>2 Factor Authentication</label>
+                                        <div class="radio">
+                                            <label>
+                                                <input disabled type="radio" name="compatibility" id="compatibility1" data-ng-model="user.has2FAEnabled" data-ng-value="true">Enabled
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input disabled type="radio" name="compatibility" id="compatibility2" data-ng-model="user.has2FAEnabled" data-ng-value="false">Disabled
+                                            </label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer" id="balance" style="color:darkgreen">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/lib/jquery/jquery.js"></script>
+<script src="js/lib/bootstrap/bootstrap.min.js"></script>
+<script src="js/lib/plugins/metisMenu/metisMenu.min.js"></script>
+<script src="js/lib/sb-admin-2.js"></script>
+<script src="js/lib/sockjs-0.3.4.js"></script>
+<script src="js/lib/stomp.js"></script>
+<script src="js/lib/angular/angular.min.js"></script>
+<script src="js/lib/angular/angular-cookies.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/lib/crypto/sha.js"></script>
+<script src="js/user.js"></script>
+<script src="js/background.js"></script>
+</body>
+</html>

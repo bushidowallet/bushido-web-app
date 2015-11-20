@@ -1,0 +1,45 @@
+.keypad {
+    display: table;
+    margin: 10px auto;
+    padding: 0;
+    width: 300px; /* not actually a static size, % in real use */
+}
+
+.keypad .key-row {
+    display: table-row;
+    width: 100%
+}
+
+.keypad .key-row .key-cell {
+    display: table-cell;
+    padding: 2px;
+    width: 25%;
+}
+
+.keypad .key-row .key-cell button.key {
+    font-size: medium;
+    font-weight: bold;
+    height: 70px;
+    width: 100%;
+}
+
+.keypad .key-row .key-cell button.key.tall-key {
+}
+
+.keypad .key-row .key-cell button.key.wide-key {
+}
+
+.keypad .key-row .key-cell button .key-alt-fn {
+    font-size: small;
+    font-weight: normal;
+}
+
+.logo
+{
+    color: #ffffff;
+    text-transform:none;
+    letter-spacing:.08em;
+    font-weight:400;
+    font-size:1.5em;
+    font-family: "Gotham Rounded SSm A";
+}

@@ -1,0 +1,13 @@
+<div class="panel-body">
+    <form name="passFrm" id="passFrm" role="form">
+        <fieldset>
+            <div class="form-group">
+                <input class="form-control" ng-model="email" placeholder="Your E-mail" id="email" name="email" type="text">
+                <p class="help-block">Put your email address used on Bushido here</p>
+            </div>
+            <button ng-model="button" ng-disabled="bdisabled" ng-click="doRequestVerificationLink()" id="reset" class="btn btn-primary btn-lg btn-block">Request Verification Link</button>
+            <br ng-show="verifyerror"/>
+            <div class="alert alert-danger" style="margin-top: 0px; margin-bottom: 0px;" ng-show="verifyerror">Unable to process the verification request.</div>
+        </fieldset>
+    </form>
+</div>

@@ -1,0 +1,40 @@
+<div class="panel-body">
+    <form id="userFrm" role="form" novalidate>
+        <fieldset>
+            <div class="form-group">
+                <label>Your User Id</label>
+                <input class="form-control" ng-model="userId" placeholder="Enter a new User Id">
+                <p class="help-block">Use at least 5 characters.</p>
+            </div>
+            <div class="form-group">
+                <label>Firstname</label>
+                <input class="form-control" ng-model="firstName" placeholder="Enter firstname">
+            </div>
+            <div class="form-group">
+                <label>Lastname</label>
+                <input class="form-control" ng-model="lastName" placeholder="Enter lastname">
+            </div>
+            <div class="form-group">
+                <label>Your Email</label>
+                <input class="form-control" ng-model="userEmail" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label>Your Password</label>
+                <input class="form-control" ng-model="userPassword" placeholder="Enter a password">
+                <p class="help-block">Use between 10 and 50 characters, at least one digit, at least one upper case.</p>
+            </div>
+            <div class="form-group">
+                <label>Phone Country Code</label>
+                <input class="form-control" ng-model="userPhoneCountryCode" placeholder="Enter a phone country code, for example: 44">
+                <p class="help-block">Use between 1 and 2 digits.</p>
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input class="form-control" ng-model="userPhone" placeholder="Enter phone number">
+            </div>
+            <button style="background-color: #0978b8" ng-click="doCreateUser()" class="btn btn-lg btn-success btn-block">Create User</button>
+        </fieldset>
+    </form>
+    <br ng-show="userError"/>
+    <div ng-show="userError" style="color: #a94442" align="center">{{errorMessage}}</div>
+</div>

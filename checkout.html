@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Bushidō Checkout</title>
+    <link href="css/checkout.css" rel="stylesheet"/>
+    <link href="css/fonts.css" rel="stylesheet"/>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="css/background.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <style type="text/css">
+        .inner {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <canvas id="canvas" height="971" width="1920"></canvas>
+    <div class="inner" align="center">
+        <div class="panel panel-default" style="width: 350px" ng-app="checkout" ng-controller="checkoutController">
+            <div class="panel-heading" style="background-color: #ffffff; padding-top: 20px; padding-bottom: 20px">
+                <img src="images/logo.png"/>
+            </div>
+            <div class="panel-body">
+                <h1 ng-hide="BTCKeypadOn">{{amount}} BTC</h1>
+                <h1 ng-show="showLocal">{{localAmount}} {{instrumentLabel}}</h1>
+                <h1 ng-show="BTCKeypadOn">{{amount}} {{instrumentLabel}}</h1>
+                <div style="padding-top: 20px; padding-bottom: 20px" class="keypad" ng-show="BTCKeypadOn">
+                    <div class="key-row">
+                        <div class="key-cell">
+                            <button class="btn btn-default key" type="button" ng-click="add('7')">7</button>
+                        </div>
+                        <div class="key-cell">
+                            <button class="btn btn-default key" type="button" ng-click="add('8')">8</button>
+                        </div>
+                        <div class="key-cell">
+                            <button class="btn btn-default key" type="button" ng-click="add('9')">9</button>
+                        </div>
+                        <div class="key-cell">
+                        </div>
+                    </div>
+                    <div class="key-row">
+                        <div class="key-cell">
+                            <button class="btn btn-default key" type="button" ng-click="add('4')">4</button>
+                        </div>
+                        <div class="key-cell">
+                            <button class="btn btn-default key" type="button" ng-click="add('5')">5</button>
+                        </div>
+                        <div class="key-cell">
+                            <button class="btn btn-default key" type="button" ng-click="add('6')">6</button>
+                        </div>
+                    </div>
+                    <div class="key-row">
+                        <div class="key-cell">
+                            <button class="btn btn-default key" type="button" ng-click="add('1')">1</button>
+                        </div>
+                        <div class="key-cell">
+                            <button class="btn btn-default key" type="button" ng-click="add('2')">2</button>
+                        </div>
+                        <div class="key-cell">
+                            <button class="btn btn-default key" type="button" ng-click="add('3')">3</button>
+                        </div>
+                        <div class="key-cell">
+                        </div>
+                    </div>
+                    <div class="key-row">
+                        <div class="key-cell">
+                            <button class="btn btn-default key wide-key" type="button" ng-click="add('0')">0</button>
+                        </div>
+                        <div class="key-cell">
+                            <button class="btn btn-default key wide-key" type="button" ng-click="add(',')">,<br/><span class="key-alt-fn">Comma</span></button>
+                        </div>
+                        <div class="key-cell">
+                            <button class="btn btn-default key" type="button" ng-click="delete()">Delete</button>
+                        </div>
+                        <div class="key-cell">
+                            <button class="btn btn-default key tall-key" type="button" ng-click="requestPayment()">Enter</button>
+                        </div>
+                    </div>
+                </div>
+                <div name="qrcodec" id="qrcodec" style="padding-top: 20px; padding-bottom: 20px; width: 180px; margin: 0 auto" ng-show="inProgress"></div>
+                <div ng-show="done" style="padding-top: 20px">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="150"
+                         height="150"
+                         viewBox="0 0 150 150">
+                        <circle cx="75" cy="75" r="75" stroke-width="0" fill="green" />
+                        <g transform="translate(44,40)">
+                            <path d="M54 8l-30 30-14-14-10 10 24 24 40-40z" fill="#FFFFFF"></path>
+                        </g>
+                        <text x="56" y="127" fill="white" style="font-size: 17px">Paid!</text>
+                    </svg></br>
+                    <div style="padding-top: 20px; padding-bottom: 20px">
+                        <button class="btn btn-default" ng-click="newTransaction()">New Transaction</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer" ng-bind="label">
+            </div>
+        </div>
+    </div>
+    <div style="position:absolute; bottom: 1px; width: 100%" align="center">
+        <h1 class="logo">bushidowallet.com</h1>
+    </div>
+</div>
+<script src="js/lib/jquery/jquery.js"></script>
+<script src="js/lib/bootstrap/bootstrap.min.js"></script>
+<script src="js/lib/plugins/metisMenu/metisMenu.min.js"></script>
+<script src="js/lib/sb-admin-2.js"></script>
+<script src="js/lib/sockjs-0.3.4.js"></script>
+<script src="js/lib/stomp.js"></script>
+<script src="js/lib/angular/angular.min.js"></script>
+<script src="js/lib/angular/angular-cookies.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/walletapi.js"></script>
+<script src="js/checkout.js"></script>
+<script src="js/lib/qrcode.js"></script>
+<script src="js/background.js"></script>
+</body>
+</html>

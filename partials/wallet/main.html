@@ -1,0 +1,75 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header" style="color: #ffffff">Your Wallet ({{selectedAccount.name}})</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+            <div class="panel panel-default" style="height: 310px;">
+                <div class="panel-heading">
+                    Receive Money (HD wallet receive address)
+                </div>
+                <div class="panel-body" style="height: 230px;">
+                    <div name="qrcodec" id="qrcodec" style="width: 180px; margin: 0 auto; padding-top: 16px"></div>
+                </div>
+                <div class="panel-footer" >
+                    <a ng-href="pos.html?walletId={{wallet.key}}&account={{selectedAccount.account}}&env={{env}}" target="_blank">Simple POS</a>
+                    <a ng-href="checkout.html?walletId={{wallet.key}}&account={{selectedAccount.account}}&instrument={{instrument}}&env={{env}}" target="_blank">Bushido Checkout</a>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default"  style="height: 310px;">
+                <div class="panel-heading">
+                    Balance and Markets
+                </div>
+                <div class="panel-body">
+                    <p class="text-info">Bitcoin Confirmed: <span class="text-success">{{balance.confirmed / 100000000}} BTC</span></p>
+                    <p class="text-info">Bitcoin Unconfirmed: <span class="text-success">{{balance.unconfirmed / 100000000}} BTC</span></p>
+                    <p class="text-info" ng-show="instrument">Price {{instrument}}: <span class="text-success">{{instrumentPrice}}</span></p>
+                    <p class="text-info">PLN Balance: <span class="text-success">{{plnBalance}}</span></p>
+                    <div class="input-group">
+                        <span class="input-group-addon" >PLN</span><input style="width: 100px" type="number" value="100" min="0" step="1" data-number-to-fixed="2" data-number-stepfactor="1" class="form-control currency" id="c2" data-ng-model="topUpValue" />
+                        <button type="button" class="btn btn-primary" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px" ng-click="topUp()">Top Up</button>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+                <div class="panel-footer">
+                    <!--<button type="button" class="btn btn-default" ng-click="initTrezor()">Init Trezor</button>-->
+                </div>
+            </div>
+            <!-- /.panel -->
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default" style="height: 310px;">
+                <div class="panel-heading">
+                    All purpose QR code generator
+                </div>
+                <div class="panel-body">
+                    <div name="qrcodecAllPurpose" id="qrcodecAllPurpose" style="width: 180px; margin: 0 auto"></div>
+                </div>
+                <div class="panel-footer">
+                    <input class="form-control" data-ng-model="qrCodeString">
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-4 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#page-wrapper -->
+<script>
+    webshims.setOptions('forms-ext', {
+        replaceUI: 'auto',
+        types: 'number'
+    });
+    webshims.polyfill('forms forms-ext');
+</script>
