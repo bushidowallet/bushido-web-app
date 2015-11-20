@@ -23,6 +23,7 @@ wallet.config(function($stateProvider) {
                 $scope.topUp = function() {
                     var url = $scope.config.urlBase + '/api/v2/wallet/topup/init';
                     $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($cookieStore.get('username') + ':' + $cookieStore.get('password'));
+                    console.log('Initializing currency top up: ' + $cookieStore.get('username') + ' ' + $cookieStore.get('password'));
                     $http.post(url, JSON.stringify($scope.wallet)).success(function(data) {
                         $scope.control = data.payload;
                         openGateway();
