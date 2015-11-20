@@ -3,19 +3,12 @@
  */
 var settings = angular.module('settings', ['app']);
 
-settings.controller('settingsController', ['$scope', '$cookieStore', '$http', 'Base64', function ($scope, $cookieStore, $http, Base64) {
+settings.controller('settingsController', ['$scope', '$cookieStore', '$http', 'Base64', 'appConfig', function ($scope, $cookieStore, $http, Base64, appConfig) {
     $scope.wallet = $cookieStore.get('wallet');
     $scope.wallets = $cookieStore.get('wallets');
     accountHandler($scope, $cookieStore);
     $scope.env =  $cookieStore.get('env');
-    var urlBase = '';
-    if ($scope.env == 'prod') {
-        urlBase = 'https://api.bushidowallet.com/';
-    }
-    if ($scope.env == 'dev') {
-        urlBase = 'http://localhost:8080/';
-    }
-    $scope.urlBase = urlBase;
+    var config = appConfig.init($scope.env);
     $scope.open = function (wallet) {
         $cookieStore.put('wallet', wallet);
         window.location.href = 'settings.html';
@@ -26,9 +19,9 @@ settings.controller('settingsController', ['$scope', '$cookieStore', '$http', 'B
         $cookieStore.put('rootKeyHash', rootKeyHash);
     };
     $scope.createAccount = function() {
-        var url                                        = $scope.urlBase + appContext + '/api/v2/wallet/' + $scope.wallet.key;
+        var url = config.urlBase + '/api/v2/wallet/' + $scope.wallet.key;
         $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($cookieStore.get('username') + ':' + $cookieStore.get('password'));
-        var acc                                        = { 'name': $scope.newaccountname };
+        var acc = { 'name': $scope.newaccountname };
         $http.post(url, JSON.stringify(acc)).success(function(data) {
             if (data.payload != null) {
                 $('#createAccountModal').modal('hide');
