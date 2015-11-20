@@ -7,9 +7,9 @@ documentation.controller('documentationController', ['$scope', '$cookieStore', '
     $scope.env =  $cookieStore.get('env');
     $scope.wallet = $cookieStore.get('wallet');
     $scope.wallets = $cookieStore.get('wallets');
-    $scope.config = appConfig.init($scope.env);
-    $scope.restDocUrl = $scope.config.urlBase + '/client/apidoc/rest/';
-    $scope.websocketDocUrl = $scope.config.urlBase + '/client/apidoc/websocket/';
+    var config = appConfig.init($scope.env);
+    $scope.restDocUrl = config.urlBase + '/client/apidoc/rest/';
+    $scope.websocketDocUrl = config.urlBase + '/client/apidoc/websocket/';
     $scope.open = function (wallet) {
         $cookieStore.put('wallet', wallet);
         window.location.href = 'documentation.html';

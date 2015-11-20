@@ -1,24 +1,18 @@
 var exportKeys = angular.module('exportKeys', ['app']);
 
-exportKeys.controller('exportKeysController', ['$scope', '$cookieStore', function ($scope, $cookieStore) {
+exportKeys.controller('exportKeysController', ['$scope', '$cookieStore', 'appConfig', function ($scope, $cookieStore, appConfig) {
     $scope.wallet = $cookieStore.get('wallet');
     $scope.wallets = $cookieStore.get('wallets');
     accountHandler($scope, $cookieStore);
     $scope.env =  $cookieStore.get('env');
-    var urlBase = '';
-    if ($scope.env == 'prod') {
-        urlBase = 'https://api.bushidowallet.com/';
-    } else if ($scope.env == 'dev') {
-        urlBase = 'http://localhost:8080/';
-    }
-    $scope.urlBase = urlBase;
+    var config = appConfig.init($scope.env);
     $scope.open = function (wallet) {
         $cookieStore.put('wallet', wallet);
         window.location.href = 'export.html';
     };
     $scope.run = function(a) {
         var table;
-        var url = $scope.urlBase + appContext + '/api/v2/wallet/transactions/keys/dt?key=' + $scope.wallet.key + "&account=" + a;
+        var url = config.urlBase + '/api/v2/wallet/transactions/keys/dt?key=' + $scope.wallet.key + "&account=" + a;
         if ($.fn.dataTable.isDataTable('#keysTable')) {
             table = $('#keysTable').DataTable({
                 retrieve: true,

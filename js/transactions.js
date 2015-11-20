@@ -1,27 +1,17 @@
 var transactions = angular.module('transactions', ['app']);
 
-transactions.controller('transactionsController', ['$scope', '$cookieStore', function ($scope, $cookieStore) {
+transactions.controller('transactionsController', ['$scope', '$cookieStore', 'appConfig', function ($scope, $cookieStore, appConfig) {
     $scope.wallet = $cookieStore.get('wallet');
     $scope.wallets = $cookieStore.get('wallets');
     accountHandler($scope, $cookieStore);
     $scope.env =  $cookieStore.get('env');
-    var restUrlBase = '';
-    var socketServerUrl = '';
-    if ($scope.env == 'prod') {
-        restUrlBase = 'https://api.bushidowallet.com/';
-        socketServerUrl = 'https://websockets.bushidowallet.com/stomp';
-    } else if ($scope.env == 'dev') {
-        restUrlBase = 'http://localhost:8080/';
-        socketServerUrl = 'http://localhost:15674/stomp';
-    }
-    $scope.restUrlBase = restUrlBase;
-    $scope.socketServerUrl = socketServerUrl;
+    var config = appConfig.init($scope.env);
     $scope.open = function (wallet) {
         $cookieStore.put('wallet', wallet);
         window.location.href = 'transactions.html';
     };
-    $scope.run    = function run(a) {
-        var url = restUrlBase + appContext + '/api/v2/wallet/transactions/dt?key=' + $scope.wallet.key + "&account=" + a;
+    $scope.run = function run(a) {
+        var url = config.urlBase + '/api/v2/wallet/transactions/dt?key=' + $scope.wallet.key + "&account=" + a;
         if ($.fn.dataTable.isDataTable('#transactionsTable')) {
             var table = $('#transactionsTable').DataTable({
                 retrieve: true,
@@ -71,7 +61,7 @@ transactions.controller('transactionsController', ['$scope', '$cookieStore', fun
                 }
             ]
         });
-        new WalletApi($scope.socketServerUrl,
+        new WalletApi(config.socketServerUrl,
             'pos',
             'pos',
             $scope.wallet.key,
@@ -103,7 +93,7 @@ transactions.controller('transactionsController', ['$scope', '$cookieStore', fun
         }
         function balanceChangeHandler(message) {
             var newTransaction = message.payload.tx;
-            var table          = $('#transactionsTable').DataTable();
+            var table = $('#transactionsTable').DataTable();
             table.row.add(newTransaction).draw();
         }
     };
