@@ -1,0 +1,57 @@
+<div class="panel-body">
+    <h1>{{amount}} {{instrumentLabel}}</h1>
+    <h1 ng-show="showLocal">{{localAmount}} {{instrumentLabel}}</h1>
+    <div style="padding-top: 20px; padding-bottom: 20px" class="keypad">
+        <div class="key-row">
+            <div class="key-cell">
+                <button class="btn btn-default key" type="button" ng-click="add('7')">7</button>
+            </div>
+            <div class="key-cell">
+                <button class="btn btn-default key" type="button" ng-click="add('8')">8</button>
+            </div>
+            <div class="key-cell">
+                <button class="btn btn-default key" type="button" ng-click="add('9')">9</button>
+            </div>
+            <div class="key-cell">
+            </div>
+        </div>
+        <div class="key-row">
+            <div class="key-cell">
+                <button class="btn btn-default key" type="button" ng-click="add('4')">4</button>
+            </div>
+            <div class="key-cell">
+                <button class="btn btn-default key" type="button" ng-click="add('5')">5</button>
+            </div>
+            <div class="key-cell">
+                <button class="btn btn-default key" type="button" ng-click="add('6')">6</button>
+            </div>
+        </div>
+        <div class="key-row">
+            <div class="key-cell">
+                <button class="btn btn-default key" type="button" ng-click="add('1')">1</button>
+            </div>
+            <div class="key-cell">
+                <button class="btn btn-default key" type="button" ng-click="add('2')">2</button>
+            </div>
+            <div class="key-cell">
+                <button class="btn btn-default key" type="button" ng-click="add('3')">3</button>
+            </div>
+            <div class="key-cell">
+            </div>
+        </div>
+        <div class="key-row">
+            <div class="key-cell">
+                <button class="btn btn-default key wide-key" type="button" ng-click="add('0')">0</button>
+            </div>
+            <div class="key-cell">
+                <button class="btn btn-default key wide-key" type="button" ng-click="add(',')">,<br/><span class="key-alt-fn">Comma</span></button>
+            </div>
+            <div class="key-cell">
+                <button class="btn btn-default key" type="button" ng-click="delete()">Delete</button>
+            </div>
+            <div class="key-cell">
+                <button class="btn btn-default key tall-key" type="button" ng-click="requestPayment()">Enter</button>
+            </div>
+        </div>
+    </div>
+</div>
