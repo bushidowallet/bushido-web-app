@@ -3,23 +3,17 @@
  */
 var pos = angular.module('pos', ['app']);
 
-pos.controller('posController', ['$scope', function ($scope) {
+pos.controller('posController', ['$scope', 'appConfig', function ($scope, appConfig) {
     $scope.walletId = $.QueryString["walletId"];
     $scope.env = $.QueryString['env'];
     $scope.account  = parseInt($.QueryString["account"], 10);
-    $scope.label    = "Initializing... Please wait...";
-    var socketServerUrl = '';
-    if ($scope.env == 'prod') {
-        socketServerUrl = 'https://websockets.bushidowallet.com/stomp';
-    } else if ($scope.env == 'dev') {
-        socketServerUrl = 'http://localhost:15674/stomp';
-    }
-    $scope.socketServerUrl = socketServerUrl;
+    $scope.label = "Initializing... Please wait...";
+    var config = appConfig.init($scope.env);
     $scope.run = function (a, qrcode) {
         function makeCode (t) {
             qrcode.makeCode(t);
         }
-        var walletApi = new WalletApi($scope.socketServerUrl,
+        var walletApi = new WalletApi(config.socketServerUrl,
             'pos',
             'pos',
             $scope.walletId,
