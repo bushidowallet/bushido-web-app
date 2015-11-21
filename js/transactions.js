@@ -3,7 +3,9 @@ var transactions = angular.module('transactions', ['app']);
 transactions.controller('transactionsController', ['$scope', '$cookieStore', 'appConfig', function ($scope, $cookieStore, appConfig) {
     $scope.wallet = $cookieStore.get('wallet');
     $scope.wallets = $cookieStore.get('wallets');
+
     accountHandler($scope, $cookieStore);
+
     $scope.env =  $cookieStore.get('env');
     var config = appConfig.init($scope.env);
     $scope.open = function (wallet) {

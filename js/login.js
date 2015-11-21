@@ -112,5 +112,6 @@ login.controller('loginController', ['$state', '$scope', '$cookieStore', 'appCon
     $cookieStore.remove('env');
     $cookieStore.remove('user');
     $cookieStore.remove('wallets');
+    $cookieStore.remove('selectedAccount');
     $state.go('userpass');
 }]);

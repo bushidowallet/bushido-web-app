@@ -1,24 +1,5 @@
 var app = angular.module("app", ['ngCookies']);
 
-var appContext = 'walletapi';
-
-var accountHandler = function ($scope, $cookieStore) {
-    $scope.accountChanged = function() {
-        console.log('account changed!');
-        $cookieStore.put('selectedAccount', $scope.selectedAccount.account);
-    };
-    var account = $cookieStore.get('selectedAccount');
-    if (account > -1) {
-        for (var i = 0; i < $scope.wallet.accounts.length; i++) {
-            if ($scope.wallet.accounts[i].account == account) {
-                $scope.selectedAccount = $scope.wallet.accounts[i];
-            }
-        }
-    } else {
-        $scope.selectedAccount = $scope.wallet.accounts[0];
-    }
-};
-
 (function($) {
     $.QueryString = (function(a) {
         if (a == "") return {};
@@ -46,6 +27,38 @@ app.factory('appConfig', function () {
         return this;
     }
     return new AppConfig();
+});
+
+app.factory('walletModel', function () {
+    return {
+        selectedAccount: null
+    }
+});
+
+app.factory('wallet', function() {
+
+    return {
+        init: function ($cookieStore, $scope, appConfig, walletModel) {
+            $scope.env = $cookieStore.get('env');
+            $scope.config = appConfig.init($scope.env);
+            $scope.wallets = $cookieStore.get('wallets');
+            $scope.wallet = $cookieStore.get('wallet');
+            var account = $cookieStore.get('selectedAccount');
+            var selectedAccount;
+            if (account > -1) {
+                for (var i = 0; i < $scope.wallet.accounts.length; i++) {
+                    if ($scope.wallet.accounts[i].account == account) {
+                        selectedAccount = $scope.wallet.accounts[i];
+                    }
+                }
+            } else {
+                selectedAccount = $scope.wallet.accounts[0];
+            }
+            console.log('Initializing wallet. Wallets: ' + $scope.wallets.length + ', selected wallet: ' + $scope.wallet.key + ', selected account: ' + selectedAccount);
+            walletModel.selectedAccount = selectedAccount;
+            $scope.selectedAccount = selectedAccount;
+        }
+    }
 });
 
 app.factory('Base64', function() {
