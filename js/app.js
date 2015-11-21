@@ -43,6 +43,7 @@ app.factory('wallet', function() {
             $scope.config = appConfig.init($scope.env);
             $scope.wallets = $cookieStore.get('wallets');
             $scope.wallet = $cookieStore.get('wallet');
+            $scope.user = $cookieStore.get('user');
             var account = $cookieStore.get('selectedAccount');
             var selectedAccount;
             if (account > -1) {
