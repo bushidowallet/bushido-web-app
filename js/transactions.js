@@ -5,8 +5,8 @@ transactions.config(function($stateProvider) {
         .state('main', {
             name: 'main',
             views: {
-                '': {templateUrl: 'transactions.html'},
-                'topbar': {templateUrl: 'partials/shared/topbar.html'},
+                '': { templateUrl: 'transactions.html' },
+                'topbar': { templateUrl: 'partials/shared/topbar.html' },
                 'sidebar': {
                     templateUrl: 'partials/shared/sidebar.html',
                     controller: function ($scope, $cookieStore, walletModel) {
