@@ -33,7 +33,7 @@ login.config(function($stateProvider) {
                                     $cookieStore.put('wallet', data.wallets[0]);
                                     window.location.href = 'wallet.html';
                                 } else if (data.wallets.length == 0) {
-                                    window.location.href = 'panel.html';
+                                    window.location.href = 'setup.html';
                                 } else if (data.wallets.length > 1) {
                                     $cookieStore.put('wallet', data.wallets[data.wallets.length - 1]);
                                     window.location.href = 'wallet.html';
@@ -84,7 +84,7 @@ login.config(function($stateProvider) {
                                 $cookieStore.put('wallet', data.wallets[0]);
                                 window.location.href = 'wallet.html';
                             } else if (data.wallets.length == 0) {
-                                window.location.href = 'panel.html';
+                                window.location.href = 'setup.html';
                             } else if (data.wallets.length > 1) {
                                 $cookieStore.put('wallet', data.wallets[data.wallets.length - 1]);
                                 window.location.href = 'wallet.html';
