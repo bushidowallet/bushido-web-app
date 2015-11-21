@@ -101,11 +101,10 @@ exportKeys.config(function($stateProvider) {
         });
 });
 
-exportKeys.controller('exportKeysController', ['$state', '$cookieStore', '$scope', 'appConfig', 'walletModel', 'wallet', function ($state, $cookieStore, $scope, appConfig, walletModel, wallet) {
-    wallet.init($cookieStore, $scope, appConfig, walletModel);
+exportKeys.controller('exportKeysController', ['$state', '$cookieStore', '$scope', 'appConfig', 'walletModel', 'walletManager', function ($state, $cookieStore, $scope, appConfig, walletModel, walletManager) {
+    walletManager.init($cookieStore, $scope, appConfig, walletModel);
     $scope.open = function (wallet) {
-        $cookieStore.put('wallet', wallet);
-        window.location.href = 'export.html';
+        walletManager.open(wallet, 'export.html');
     };
     $state.go('main');
 }]);

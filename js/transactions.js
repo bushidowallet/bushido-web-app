@@ -125,11 +125,10 @@ transactions.config(function($stateProvider) {
         });
 });
 
-transactions.controller('transactionsController', ['$state', '$cookieStore', '$scope', 'appConfig', 'walletModel', 'wallet', function ($state, $cookieStore, $scope, appConfig, walletModel, wallet) {
-    wallet.init($cookieStore, $scope, appConfig, walletModel);
+transactions.controller('transactionsController', ['$state', '$cookieStore', '$scope', 'appConfig', 'walletModel', 'walletManager', function ($state, $cookieStore, $scope, appConfig, walletModel, walletManager) {
+    walletManager.init($cookieStore, $scope, appConfig, walletModel);
     $scope.open = function (wallet) {
-        $cookieStore.put('wallet', wallet);
-        window.location.href = 'transactions.html';
+        walletManager.open(wallet, 'transactions.html');
     };
     $state.go('main');
 }]);

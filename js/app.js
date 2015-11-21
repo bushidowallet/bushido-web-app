@@ -35,8 +35,12 @@ app.factory('walletModel', function () {
     }
 });
 
-app.factory('wallet', function() {
-
+app.factory('walletManager', function() {
+    var c = null;
+    var s = null;
+    var w = null;
+    var m = null;
+    var a = null;
     return {
         init: function ($cookieStore, $scope, appConfig, walletModel) {
             $scope.env = $cookieStore.get('env');
@@ -58,6 +62,17 @@ app.factory('wallet', function() {
             console.log('Initializing wallet. Wallets: ' + $scope.wallets.length + ', selected wallet: ' + $scope.wallet.key + ', selected account: ' + selectedAccount);
             walletModel.selectedAccount = selectedAccount;
             $scope.selectedAccount = selectedAccount;
+            c = $cookieStore;
+            s = $scope;
+            m = walletModel;
+            a = appConfig;
+        },
+        open: function (wallet, page) {
+            c.remove('selectedAccount');
+            c.put('wallet', wallet);
+            this.init(c, s, a, m);
+            //not sure why, but data binding gets broken on a nested view, forced to reload the page..
+            window.location.href = page;
         }
     }
 });

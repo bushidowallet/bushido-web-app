@@ -66,11 +66,10 @@ settings.config(function($stateProvider) {
         });
 });
 
-settings.controller('settingsController', ['$state', '$cookieStore', '$scope', 'appConfig', 'walletModel', 'wallet', function ($state, $cookieStore, $scope, appConfig, walletModel, wallet) {
-    wallet.init($cookieStore, $scope, appConfig, walletModel);
+settings.controller('settingsController', ['$state', '$cookieStore', '$scope', 'appConfig', 'walletModel', 'walletManager', function ($state, $cookieStore, $scope, appConfig, walletModel, walletManager) {
+    walletManager.init($cookieStore, $scope, appConfig, walletModel);
     $scope.open = function (wallet) {
-        $cookieStore.put('wallet', wallet);
-        window.location.href = 'settings.html';
+        walletManager.open(wallet, 'settings.html');
     };
     $state.go('main');
 }]);
