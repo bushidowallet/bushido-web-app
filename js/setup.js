@@ -38,13 +38,12 @@ setup.config(function($stateProvider) {
                             var wallet = { key: $scope.walletId, owner: $scope.user.username, settings: s, accounts: [] };
                             $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.user.username + ':' + $cookieStore.get('password'));
                             $http.post($scope.config.urlBase + '/api/v2/wallet', JSON.stringify(wallet)).success(function (data) {
-                                if (data.payload != null && data.errors == null) {
-                                    //TODO: need to get a list of wallets
-                                    //var d = data.payload;
-                                    //$cookieStore.put('wallet', wallet);
-                                    //$http.get($scope.config.urlBase + '/api/v2/wallet')
+                                if (data.errors == null || data.errors.length == 0) {
+                                    $cookieStore.put('user', data.user);
+                                    $cookieStore.put('wallets', data.wallets);
+                                    $cookieStore.put('wallet', data.wallets[0]);
                                     $state.go('thanks');
-                                } else if (data.errors) {
+                                } else {
                                     var errorCode = data.errors[0].code;
                                     var msg = null
                                     if (errorCode == 1) {
