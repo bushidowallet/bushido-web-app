@@ -61,7 +61,7 @@ exportKeys.config(function($stateProvider) {
                                     }
                                 ],
                                 rowCallback: function ( row, data ) {
-                                    var wallet = $cookieStore.get('wallet');
+                                    var wallet = walletModel.selectedWallet;
                                     var s = wallet.settings.length;
                                     var compressed = false;
                                     for (var i = 0; i < s; i++) {
