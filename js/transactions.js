@@ -6,15 +6,15 @@ transactions.config(function($stateProvider) {
             name: 'main',
             views: {
                 '': { templateUrl: 'transactions.html' },
-                'topbar': { templateUrl: 'partials/shared/topbar.html' },
+                'topbar': {
+                    templateUrl: 'partials/shared/topbar.html'
+                },
                 'sidebar': {
                     templateUrl: 'partials/shared/sidebar.html',
-                    controller: function ($scope, $cookieStore, walletModel) {
-                        $scope.selectedAccount = walletModel.selectedAccount;
-                        $scope.$watch('selectedAccount', function (newValue, oldValue) {
-                            if (newValue != oldValue) {
-                                walletModel.selectedAccount = newValue;
-                                $cookieStore.put('selectedAccount', newValue.account);
+                    controller: function($scope, walletModel, walletManager) {
+                        $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
+                            if (newValue !== oldValue) {
+                                walletManager.save();
                             }
                         });
                     }
@@ -23,7 +23,7 @@ transactions.config(function($stateProvider) {
                     templateUrl: 'partials/transactions/main.html',
                     controller: function ($scope, $cookieStore, walletModel) {
                         var run = function run(a) {
-                            var url = $scope.config.urlBase + '/api/v2/wallet/transactions/dt?key=' + $scope.wallet.key + "&account=" + a;
+                            var url = $scope.config.urlBase + '/api/v2/wallet/transactions/dt?key=' + $scope.model.selectedWallet.key + "&account=" + a;
                             if ($.fn.dataTable.isDataTable('#transactionsTable')) {
                                 var table = $('#transactionsTable').DataTable({
                                     retrieve: true,
@@ -76,7 +76,7 @@ transactions.config(function($stateProvider) {
                             new WalletApi($scope.config.socketServerUrl,
                                 'pos',
                                 'pos',
-                                $scope.wallet.key,
+                                $scope.model.selectedWallet.key,
                                 false,
                                 null,
                                 null,
@@ -128,7 +128,7 @@ transactions.config(function($stateProvider) {
 transactions.controller('transactionsController', ['$state', '$cookieStore', '$scope', 'appConfig', 'walletModel', 'walletManager', function ($state, $cookieStore, $scope, appConfig, walletModel, walletManager) {
     walletManager.init($cookieStore, $scope, appConfig, walletModel);
     $scope.open = function (wallet) {
-        walletManager.open(wallet, 'transactions.html');
+        walletManager.open(wallet);
     };
     $state.go('main');
 }]);

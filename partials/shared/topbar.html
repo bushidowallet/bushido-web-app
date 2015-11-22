@@ -5,7 +5,7 @@
         </a>
         <ul class="dropdown-menu dropdown-messages">
             <p align="center" style="padding-top: 8px;">Your wallets: </p>
-            <li ng-repeat="wallet in wallets">
+            <li ng-repeat="wallet in model.wallets">
                 <a href="#" ng-click="open(wallet)">
                     <div>
                         <i class="fa fa-money fa-fw"></i> <strong>{{wallet.key}}</strong>
@@ -25,7 +25,7 @@
             <li><a href="user.html"><i class="fa fa-user fa-fw"></i> User Profile</a>
             </li>
             <li class="divider"></li>
-            <li><a href="login.html?env={{env}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+            <li><a href="login.html?env={{config.env}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
             </li>
         </ul>
     </li>

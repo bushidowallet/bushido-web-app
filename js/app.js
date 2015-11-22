@@ -30,49 +30,71 @@ app.factory('appConfig', function () {
 });
 
 app.factory('walletModel', function () {
-    return {
-        selectedAccount: null
+    var WalletModel = function() {
+    };
+    WalletModel.prototype.init = function (user, wallets, selectedWallet, selectedAccount) {
+        this.user = user;
+        this.wallets = wallets;
+        this.selectedWallet = (selectedWallet != null) ? selectedWallet : wallets[0];
+        var a = (selectedAccount != null) ? selectedAccount.account : this.selectedWallet.accounts[0].account;
+        var sAccount;
+        for (var i = 0; i < this.selectedWallet.accounts.length; i++) {
+            if (this.selectedWallet.accounts[i].account == a) {
+                sAccount = this.selectedWallet.accounts[i];
+            }
+        }
+        if (sAccount != null) {
+            this.selectedAccount = sAccount;
+        } else {
+            console.log('Unable to find account ' + a + ' on wallet ' + this.selectedWallet.key);
+        }
+        return this;
     }
+    return new WalletModel();
 });
 
 app.factory('walletManager', function() {
-    var c = null;
-    var s = null;
-    var w = null;
-    var m = null;
-    var a = null;
+    var m;
+    var c;
+    var persist = function() {
+        c.put('user', m.user);
+        c.put('wallets', m.wallets);
+        c.put('selectedWallet', m.selectedWallet);
+        c.put('selectedAccount', m.selectedAccount);
+    }
     return {
         init: function ($cookieStore, $scope, appConfig, walletModel) {
-            $scope.env = $cookieStore.get('env');
-            $scope.config = appConfig.init($scope.env);
-            $scope.wallets = $cookieStore.get('wallets');
-            $scope.wallet = $cookieStore.get('wallet');
-            $scope.user = $cookieStore.get('user');
-            var account = $cookieStore.get('selectedAccount');
-            var selectedAccount;
-            if (account > -1) {
-                for (var i = 0; i < $scope.wallet.accounts.length; i++) {
-                    if ($scope.wallet.accounts[i].account == account) {
-                        selectedAccount = $scope.wallet.accounts[i];
-                    }
-                }
-            } else {
-                selectedAccount = $scope.wallet.accounts[0];
-            }
-            console.log('Initializing wallet. Wallets: ' + $scope.wallets.length + ', selected wallet: ' + $scope.wallet.key + ', selected account: ' + selectedAccount);
-            walletModel.selectedAccount = selectedAccount;
-            $scope.selectedAccount = selectedAccount;
+            var model = walletModel.init($cookieStore.get('user'), $cookieStore.get('wallets'), $cookieStore.get('selectedWallet'), $cookieStore.get('selectedAccount'));
+            var config = appConfig.init($cookieStore.get('env'));
+            $scope.model = model;
+            $scope.config = config;
+            m = model;
             c = $cookieStore;
-            s = $scope;
-            m = walletModel;
-            a = appConfig;
+            persist();
         },
-        open: function (wallet, page) {
-            c.remove('selectedAccount');
-            c.put('wallet', wallet);
-            this.init(c, s, a, m);
-            //not sure why, but data binding gets broken on a nested view, forced to reload the page..
-            window.location.href = page;
+        open: function (wallet) {
+            m.selectedWallet = wallet;
+            m.selectedAccount = wallet.accounts[0];
+            persist();
+        },
+        save: function () {
+            persist();
+        },
+        update: function (payload) {
+            for (var i = 0; i < m.wallets.length; i++) {
+                if (m.wallets[i].key == payload.key) {
+                    m.wallets.slice(i, 1, payload);
+                }
+            }
+            if (m.selectedWallet.key == payload.key) {
+                m.selectedWallet = payload;
+            }
+            for (var j = 0; j < payload.accounts.length; j++) {
+                if (m.selectedAccount.account == payload.accounts[j].account) {
+                    m.selectedAccount = payload.accounts[j];
+                }
+            }
+            persist();
         }
     }
 });

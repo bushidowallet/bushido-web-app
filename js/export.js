@@ -10,12 +10,10 @@ exportKeys.config(function($stateProvider) {
                 'topbar': {templateUrl: 'partials/shared/topbar.html'},
                 'sidebar': {
                     templateUrl: 'partials/shared/sidebar.html',
-                    controller: function ($scope, $cookieStore, walletModel) {
-                        $scope.selectedAccount = walletModel.selectedAccount;
-                        $scope.$watch('selectedAccount', function (newValue, oldValue) {
-                            if (newValue != oldValue) {
-                                walletModel.selectedAccount = newValue;
-                                $cookieStore.put('selectedAccount', newValue.account);
+                    controller: function($scope, walletModel, walletManager) {
+                        $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
+                            if (newValue !== oldValue) {
+                                walletManager.save();
                             }
                         });
                     }
@@ -25,7 +23,7 @@ exportKeys.config(function($stateProvider) {
                     controller: function ($scope, $cookieStore, walletModel) {
                         var run = function(a) {
                             var table;
-                            var url = $scope.config.urlBase + '/api/v2/wallet/transactions/keys/dt?key=' + $scope.wallet.key + "&account=" + a;
+                            var url = $scope.config.urlBase + '/api/v2/wallet/transactions/keys/dt?key=' + walletModel.selectedWallet.key + "&account=" + a;
                             if ($.fn.dataTable.isDataTable('#keysTable')) {
                                 table = $('#keysTable').DataTable({
                                     retrieve: true,
@@ -104,7 +102,7 @@ exportKeys.config(function($stateProvider) {
 exportKeys.controller('exportKeysController', ['$state', '$cookieStore', '$scope', 'appConfig', 'walletModel', 'walletManager', function ($state, $cookieStore, $scope, appConfig, walletModel, walletManager) {
     walletManager.init($cookieStore, $scope, appConfig, walletModel);
     $scope.open = function (wallet) {
-        walletManager.open(wallet, 'export.html');
+        walletManager.open(wallet);
     };
     $state.go('main');
 }]);

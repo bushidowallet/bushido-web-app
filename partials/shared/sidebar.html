@@ -3,8 +3,8 @@
         <ul class="nav" id="side-menu">
             <li class="sidebar-search">
                 <div class="input-group custom-search-form">
-                    <label for="acc">{{wallet.key}}</label>
-                    <select id="acc" class="form-control" ng-change="accountChanged()" ng-model="selectedAccount" ng-options="account.name for account in wallet.accounts">
+                    <label for="acc">{{model.selectedWallet.key}} : {{model.selectedAccount.name}}</label>
+                    <select id="acc" class="form-control" ng-model="model.selectedAccount" ng-options="account.name for account in model.selectedWallet.accounts">
                     </select>
                 </div>
             </li>
@@ -17,10 +17,6 @@
             <li>
                 <a href="export.html"><i class="fa fa-key fa-fw"></i> Export Keys</a>
             </li>
-            <!--
-            <li>
-                <a href="analytics.html"><i class="fa fa-signal fa-fw"></i> Analytics</a>
-            </li>-->
             <li>
                 <a href="docs.html"><i class="fa fa-info-circle fa-fw"></i> Documentation</a>
             </li>

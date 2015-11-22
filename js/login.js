@@ -29,14 +29,10 @@ login.config(function($stateProvider) {
                                 $cookieStore.put('user', data.user);
                                 $cookieStore.put('wallets', data.wallets);
                                 console.log("Wallets: " + data.wallets.length);
-                                if (data.wallets.length == 1) {
-                                    $cookieStore.put('wallet', data.wallets[0]);
+                                if (data.wallets.length >= 1) {
                                     window.location.href = 'wallet.html';
-                                } else if (data.wallets.length == 0) {
+                                } else {
                                     window.location.href = 'setup.html';
-                                } else if (data.wallets.length > 1) {
-                                    $cookieStore.put('wallet', data.wallets[data.wallets.length - 1]);
-                                    window.location.href = 'wallet.html';
                                 }
                                 $scope.loginerror = false;
                             } else {
@@ -80,15 +76,11 @@ login.config(function($stateProvider) {
                             $cookieStore.put('user', data.user);
                             $cookieStore.put('wallets', data.wallets);
                             console.log("Wallets: " + data.wallets.length);
-                            if (data.wallets.length == 1) {
-                                $cookieStore.put('wallet', data.wallets[0]);
+                            if (data.wallets.length >= 1) {
                                 window.location.href = 'wallet.html';
-                            } else if (data.wallets.length == 0) {
+                            } else {
                                 window.location.href = 'setup.html';
-                            } else if (data.wallets.length > 1) {
-                                $cookieStore.put('wallet', data.wallets[data.wallets.length - 1]);
-                                window.location.href = 'wallet.html';
-                            }
+                            };
                             $scope.loginerror = false;
                         } else {
                             $scope.loginerror = true;
@@ -107,7 +99,7 @@ login.controller('loginController', ['$state', '$scope', '$cookieStore', 'appCon
     $scope.loginerror = false;
     $cookieStore.remove('username');
     $cookieStore.remove('password');
-    $cookieStore.remove('wallet');
+    $cookieStore.remove('selectedWallet');
     $cookieStore.remove('rootKeyHash');
     $cookieStore.remove('env');
     $cookieStore.remove('user');

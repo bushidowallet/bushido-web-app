@@ -41,7 +41,6 @@ setup.config(function($stateProvider) {
                                 if (data.errors == null || data.errors.length == 0) {
                                     $cookieStore.put('user', data.user);
                                     $cookieStore.put('wallets', data.wallets);
-                                    $cookieStore.put('wallet', data.wallets[0]);
                                     $state.go('thanks');
                                 } else {
                                     var errorCode = data.errors[0].code;

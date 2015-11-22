@@ -9,14 +9,15 @@ wallet.config(function($stateProvider) {
             name: 'main',
             views: {
                 '' : { templateUrl: 'wallet.html' },
-                'topbar' : { templateUrl : 'partials/shared/topbar.html' },
-                'sidebar' : { templateUrl : 'partials/shared/sidebar.html',
-                    controller: function ($scope, $cookieStore, walletModel) {
-                        $scope.selectedAccount = walletModel.selectedAccount;
-                        $scope.$watch('selectedAccount', function(newValue, oldValue) {
-                            if (newValue != oldValue) {
-                                walletModel.selectedAccount = newValue;
-                                $cookieStore.put('selectedAccount', newValue.account);
+                'topbar' : {
+                    templateUrl : 'partials/shared/topbar.html'
+                },
+                'sidebar' : {
+                    templateUrl : 'partials/shared/sidebar.html',
+                    controller: function($scope, walletModel, walletManager) {
+                        $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
+                            if (newValue !== oldValue) {
+                                walletManager.save();
                             }
                         });
                     }
@@ -31,15 +32,11 @@ wallet.config(function($stateProvider) {
                         $scope.control = null;
                         $scope.topUpValue = 50.00;
                         $scope.selectedAccount = walletModel.selectedAccount;
-                        $scope.open = function (wallet) {
-                            $cookieStore.put('wallet', wallet);
-                            window.location.href = 'wallet.html';
-                        };
                         $scope.topUp = function() {
                             var url = $scope.config.urlBase + '/api/v2/wallet/topup/init';
                             $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($cookieStore.get('username') + ':' + $cookieStore.get('password'));
-                            console.log('Initializing currency top up: ' + $cookieStore.get('username') + ' ' + $cookieStore.get('password'));
-                            $http.post(url, JSON.stringify($scope.wallet)).success(function(data) {
+                            console.log('Initializing currency top up: ' + $cookieStore.get('username') + ' ' + $cookieStore.get('password') + ' auth header: ' + $http.defaults.headers.common['Authorization']);
+                            $http.post(url, JSON.stringify($scope.model.selectedWallet)).success(function(data) {
                                 $scope.control = data.payload;
                                 openGateway();
                             }).error(function(data) {
@@ -68,7 +65,7 @@ wallet.config(function($stateProvider) {
                             var walletApi = new WalletApi($scope.config.socketServerUrl,
                                 'pos',
                                 'pos',
-                                $scope.wallet.key,
+                                $scope.model.selectedWallet.key,
                                 false,
                                 'GET_ADDRESS',
                                 {'account': a},
@@ -83,7 +80,7 @@ wallet.config(function($stateProvider) {
                                 .connect();
                             function getInstrumentDataHandler (message) {
                                 $scope.$apply(function () {
-                                    var wallet = $scope.wallet;
+                                    var wallet = $scope.model.selectedWallet;
                                     var s = wallet.settings.length;
                                     for (var i = 0; i < s; i++) {
                                         var setting = wallet.settings[i];
@@ -157,8 +154,7 @@ wallet.config(function($stateProvider) {
 wallet.controller('walletController', ['$state', '$cookieStore', '$scope', 'appConfig', 'walletModel', 'walletManager', function ($state, $cookieStore, $scope, appConfig, walletModel, walletManager) {
     walletManager.init($cookieStore, $scope, appConfig, walletModel);
     $scope.open = function (wallet) {
-        walletManager.open(wallet, 'wallet.html');
+        walletManager.open(wallet);
     };
     $state.go('main');
 }]);
-

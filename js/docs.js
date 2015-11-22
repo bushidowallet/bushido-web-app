@@ -12,12 +12,10 @@ docs.config(function($stateProvider) {
                 'topbar': { templateUrl: 'partials/shared/topbar.html' },
                 'sidebar': {
                     templateUrl: 'partials/shared/sidebar.html',
-                    controller: function ($scope, $cookieStore, walletModel) {
-                        $scope.selectedAccount = walletModel.selectedAccount;
-                        $scope.$watch('selectedAccount', function (newValue, oldValue) {
-                            if (newValue != oldValue) {
-                                walletModel.selectedAccount = newValue;
-                                $cookieStore.put('selectedAccount', newValue.account);
+                    controller: function($scope, walletModel, walletManager) {
+                        $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
+                            if (newValue !== oldValue) {
+                                walletManager.save();
                             }
                         });
                     }
@@ -35,7 +33,7 @@ docs.config(function($stateProvider) {
 docs.controller('docsController', ['$state', '$cookieStore', '$scope', 'appConfig', 'walletModel', 'walletManager', function ($state, $cookieStore, $scope, appConfig, walletModel, walletManager) {
     walletManager.init($cookieStore, $scope, appConfig, walletModel);
     $scope.open = function (wallet) {
-        walletManager.open(wallet, 'docs.html');
+        walletManager.open(wallet);
     };
     $state.go('main');
 }]);

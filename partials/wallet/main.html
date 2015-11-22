@@ -1,7 +1,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header" style="color: #ffffff">Your Wallet ({{selectedAccount.name}})</h1>
+            <h1 class="page-header" style="color: #ffffff">Your Wallet ({{model.selectedAccount.name}})</h1>
         </div>
     </div>
     <div class="row">
@@ -14,8 +14,8 @@
                     <div name="qrcodec" id="qrcodec" style="width: 180px; margin: 0 auto; padding-top: 16px"></div>
                 </div>
                 <div class="panel-footer" >
-                    <a ng-href="pos.html?walletId={{wallet.key}}&account={{selectedAccount.account}}&env={{env}}" target="_blank">Simple POS</a>
-                    <a ng-href="checkout.html?walletId={{wallet.key}}&account={{selectedAccount.account}}&instrument={{instrument}}&env={{env}}" target="_blank">Bushido Checkout</a>
+                    <a ng-href="pos.html?walletId={{model.selectedWallet.key}}&account={{model.selectedAccount.account}}&env={{config.env}}" target="_blank">Simple POS</a>
+                    <a ng-href="checkout.html?walletId={{model.selectedWallet.key}}&account={{model.selectedAccount.account}}&instrument={{instrument}}&env={{config.env}}" target="_blank">Bushido Checkout</a>
                 </div>
             </div>
         </div>
@@ -35,10 +35,8 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <!--<button type="button" class="btn btn-default" ng-click="initTrezor()">Init Trezor</button>-->
                 </div>
             </div>
-            <!-- /.panel -->
         </div>
         <div class="col-lg-4">
             <div class="panel panel-default" style="height: 310px;">
