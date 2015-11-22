@@ -36,8 +36,9 @@ wallet.config(function($stateProvider) {
                             var url = $scope.config.urlBase + '/api/v2/wallet/topup/init';
                             $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($cookieStore.get('username') + ':' + $cookieStore.get('password'));
                             console.log('Initializing currency top up: ' + $cookieStore.get('username') + ' ' + $cookieStore.get('password') + ' auth header: ' + $http.defaults.headers.common['Authorization']);
-                            var w = $scope.model.selectedWallet;
-                            $http.post(url, JSON.stringify(w)).success(function(data) {
+                            var currWallet = $scope.model.selectedWallet;
+                            var req = { accounts: currWallet.accounts, key: currWallet.key, owner: currWallet.owner, settings: currWallet.settings, info: currWallet.info };
+                            $http.post(url, JSON.stringify(req)).success(function(data) {
                                 $scope.control = data.payload;
                                 openGateway();
                             }).error(function(data) {
