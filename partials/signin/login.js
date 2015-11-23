@@ -30,9 +30,9 @@ login.config(function($stateProvider) {
                                 $cookieStore.put('wallets', data.wallets);
                                 console.log("Wallets: " + data.wallets.length);
                                 if (data.wallets.length >= 1) {
-                                    window.location.href = 'wallet.html';
+                                    window.location.href = '../../wallet.html';
                                 } else {
-                                    window.location.href = 'setup.html';
+                                    window.location.href = '../../setup.html';
                                 }
                                 $scope.loginerror = false;
                             } else {
@@ -77,9 +77,9 @@ login.config(function($stateProvider) {
                             $cookieStore.put('wallets', data.wallets);
                             console.log("Wallets: " + data.wallets.length);
                             if (data.wallets.length >= 1) {
-                                window.location.href = 'wallet.html';
+                                window.location.href = '../../wallet.html';
                             } else {
-                                window.location.href = 'setup.html';
+                                window.location.href = '../../setup.html';
                             };
                             $scope.loginerror = false;
                         } else {

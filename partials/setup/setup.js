@@ -72,7 +72,7 @@ setup.config(function($stateProvider) {
             templateUrl: "partials/setup/thanks.html" ,
             controller: function ($scope, $state) {
                 $scope.openWallet = function() {
-                    window.location.href = 'wallet.html';
+                    window.location.href = '../../wallet.html';
                 }
             }
         })
