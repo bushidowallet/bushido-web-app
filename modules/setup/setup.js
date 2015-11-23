@@ -5,7 +5,7 @@ setup.config(function($stateProvider) {
     $stateProvider
         .state('welcome', {
             name: 'welcome',
-            templateUrl: "partials/setup/welcome.html" ,
+            templateUrl: "modules/setup/welcome.html" ,
             controller: function ($scope, $state) {
                 $scope.createWallet = function() {
                     $state.go('wallet');
@@ -14,7 +14,7 @@ setup.config(function($stateProvider) {
         })
         .state('wallet', {
             name: 'wallet',
-            templateUrl: "partials/signup/wallet.html",
+            templateUrl: "modules/signup/wallet.html",
             controller: function ($scope, $http, $state, Base64, $cookieStore) {
                 var checkEntropy = function (str) {
                     if (str.length < 20) {
@@ -69,7 +69,7 @@ setup.config(function($stateProvider) {
         })
         .state('thanks', {
             name: 'thanks',
-            templateUrl: "partials/setup/thanks.html" ,
+            templateUrl: "modules/setup/thanks.html" ,
             controller: function ($scope, $state) {
                 $scope.openWallet = function() {
                     window.location.href = '../../wallet.html';

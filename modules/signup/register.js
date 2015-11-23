@@ -19,11 +19,11 @@ register.config(function($stateProvider) {
     $stateProvider
         .state('welcome', {
             name: 'welcome',
-            templateUrl: "partials/signup/welcome.html"
+            templateUrl: "modules/signup/welcome.html"
         })
         .state('code', {
             name: 'code',
-            templateUrl: "partials/signup/code.html",
+            templateUrl: "modules/signup/code.html",
             controller: function ($scope, signupModel, $state) {
                 $scope.doRegisterIndividual = function() {
                     signupModel.organizationId = "individuals";
@@ -39,7 +39,7 @@ register.config(function($stateProvider) {
         })
         .state('organizationSetup', {
             name: 'organizationSetup',
-            templateUrl: "partials/signup/organization.html",
+            templateUrl: "modules/signup/organization.html",
             controller: function ($scope, signupModel, $state, $http) {
                 var check = function (str) {
                     if (str.length < 5) {
@@ -75,7 +75,7 @@ register.config(function($stateProvider) {
         })
         .state('userSetup', {
             name: 'userSetup',
-            templateUrl: "partials/signup/user.html",
+            templateUrl: "modules/signup/user.html",
             controller: function ($scope, signupModel, $state, $http) {
                 var isValidUserId = function (user) {
                     if (user == null || user.length < 5) {
@@ -166,7 +166,7 @@ register.config(function($stateProvider) {
         })
         .state('walletSetup', {
             name: 'walletSetup',
-            templateUrl: "partials/signup/wallet.html",
+            templateUrl: "modules/signup/wallet.html",
             controller: function ($scope, signupModel, $state, $http) {
                 var checkEntropy = function (str) {
                     if (str.length < 20) {
@@ -219,7 +219,7 @@ register.config(function($stateProvider) {
         })
         .state('thanks', {
             name: 'thanks',
-            templateUrl: "partials/signup/thanks.html",
+            templateUrl: "modules/signup/thanks.html",
             controller: function ($scope, signupModel) {
                 $scope.walletId = signupModel.walletId;
                 $scope.userId = signupModel.userId;

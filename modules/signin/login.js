@@ -5,7 +5,7 @@ login.config(function($stateProvider) {
     $stateProvider
         .state('userpass', {
             name: 'userpass',
-            templateUrl: "partials/signin/userpass.html",
+            templateUrl: "modules/signin/userpass.html",
             controller: function ($scope, $state, $http, Base64, $cookieStore) {
                 $scope.inputType = 'password';
                 $scope.hideShowPassword = function(){
@@ -57,7 +57,7 @@ login.config(function($stateProvider) {
         })
         .state('code', {
             name: 'code',
-            templateUrl: "partials/signin/code.html",
+            templateUrl: "modules/signin/code.html",
             controller: function ($scope, $http, Base64, $cookieStore) {
                 $scope.username = $cookieStore.get('username');
                 $scope.loginerror = false;

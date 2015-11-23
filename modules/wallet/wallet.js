@@ -10,10 +10,10 @@ wallet.config(function($stateProvider) {
             views: {
                 '' : { templateUrl: 'wallet.html' },
                 'topbar' : {
-                    templateUrl : 'partials/shared/topbar.html'
+                    templateUrl : 'modules/shared/topbar.html'
                 },
                 'sidebar' : {
-                    templateUrl : 'partials/shared/sidebar.html',
+                    templateUrl : 'modules/shared/sidebar.html',
                     controller: function($scope, walletModel, walletManager) {
                         $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
                             if (newValue !== oldValue) {
@@ -22,7 +22,7 @@ wallet.config(function($stateProvider) {
                         });
                     }
                 },
-                'content' : { templateUrl : 'partials/wallet/main.html',
+                'content' : { templateUrl : 'modules/wallet/main.html',
                     controller: function ($scope, $cookieStore, $http, Base64, $window, walletModel) {
                         $scope.balance = {'confirmed': 0, 'unconfirmed': 0};
                         $scope.qrCodeString = $scope.config.defaultRecipientAddress;

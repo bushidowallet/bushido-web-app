@@ -8,7 +8,7 @@ passw.config(function($stateProvider) {
     $stateProvider
         .state('code', {
             name: 'code',
-            templateUrl: "partials/password/code.html",
+            templateUrl: "modules/password/code.html",
             controller: function ($scope, $state, $http) {
                 $scope.doVerifyCode = function() {
                      var url = $scope.config.urlBase + '/api/v2/user/password/reset/code';
@@ -31,7 +31,7 @@ passw.config(function($stateProvider) {
         })
         .state('password', {
             name: 'password',
-            templateUrl: "partials/password/password.html",
+            templateUrl: "modules/password/password.html",
             controller: function ($scope, $http, helpFieldState, $state) {
                 $scope.newpass = '';
                 $scope.newpass2 = '';
@@ -76,7 +76,7 @@ passw.config(function($stateProvider) {
         })
         .state('thanks', {
             name: 'thanks',
-            templateUrl: "partials/password/thanks.html"
+            templateUrl: "modules/password/thanks.html"
         })
 });
 

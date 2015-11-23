@@ -7,9 +7,9 @@ exportKeys.config(function($stateProvider) {
             name: 'main',
             views: {
                 '': {templateUrl: 'transactions.html'},
-                'topbar': {templateUrl: 'partials/shared/topbar.html'},
+                'topbar': {templateUrl: 'modules/shared/topbar.html'},
                 'sidebar': {
-                    templateUrl: 'partials/shared/sidebar.html',
+                    templateUrl: 'modules/shared/sidebar.html',
                     controller: function($scope, walletModel, walletManager) {
                         $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
                             if (newValue !== oldValue) {
@@ -19,7 +19,7 @@ exportKeys.config(function($stateProvider) {
                     }
                 },
                 'content': {
-                    templateUrl: 'partials/export/main.html',
+                    templateUrl: 'modules/export/main.html',
                     controller: function ($scope, $cookieStore, walletModel) {
                         var run = function(a) {
                             var table;
