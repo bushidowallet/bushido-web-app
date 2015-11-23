@@ -4,7 +4,7 @@ account.config(function($stateProvider) {
     $stateProvider
         .state('email', {
             name: 'email',
-            templateUrl: "modules/account/email.html",
+            templateUrl: "/modules/account/email.html",
             controller: function ($scope, $http, $state) {
                 $scope.email = '';
                 $scope.bdisabled = true;
@@ -35,7 +35,7 @@ account.config(function($stateProvider) {
         })
         .state('thanks', {
             name: 'thanks',
-            templateUrl: "modules/account/thanks.html"
+            templateUrl: "/modules/account/thanks.html"
         })
 });
 

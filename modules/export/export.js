@@ -1,15 +1,17 @@
 var exportKeys = angular.module('exportKeys', ['app', 'ui.router']);
 
+TableTools.DEFAULTS.sSwfPath = "/swf/copy_csv_xls_pdf.swf";
+
 exportKeys.config(function($stateProvider) {
 
     $stateProvider
         .state('main', {
             name: 'main',
             views: {
-                '': {templateUrl: 'transactions.html'},
-                'topbar': {templateUrl: 'modules/shared/topbar.html'},
+                '': {templateUrl: 'export.html'},
+                'topbar': {templateUrl: '../shared/topbar.html'},
                 'sidebar': {
-                    templateUrl: 'modules/shared/sidebar.html',
+                    templateUrl: '../shared/sidebar.html',
                     controller: function($scope, walletModel, walletManager) {
                         $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
                             if (newValue !== oldValue) {
@@ -19,7 +21,7 @@ exportKeys.config(function($stateProvider) {
                     }
                 },
                 'content': {
-                    templateUrl: 'modules/export/main.html',
+                    templateUrl: '../export/main.html',
                     controller: function ($scope, $cookieStore, walletModel) {
                         var run = function(a) {
                             var table;

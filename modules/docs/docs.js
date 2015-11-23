@@ -9,9 +9,9 @@ docs.config(function($stateProvider) {
             name: 'main',
             views: {
                 '': { templateUrl: 'docs.html' },
-                'topbar': { templateUrl: 'modules/shared/topbar.html' },
+                'topbar': { templateUrl: '/modules/shared/topbar.html' },
                 'sidebar': {
-                    templateUrl: 'modules/shared/sidebar.html',
+                    templateUrl: '/modules/shared/sidebar.html',
                     controller: function($scope, walletModel, walletManager) {
                         $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
                             if (newValue !== oldValue) {
@@ -20,7 +20,7 @@ docs.config(function($stateProvider) {
                         });
                     }
                 },
-                'content': { templateUrl: 'modules/docs/main.html',
+                'content': { templateUrl: '/modules/docs/main.html',
                     controller: function ($scope) {
                         $scope.restDocUrl = $scope.config.urlBase + '/client/apidoc/rest/';
                         $scope.websocketDocUrl = $scope.config.urlBase + '/client/apidoc/websocket/';

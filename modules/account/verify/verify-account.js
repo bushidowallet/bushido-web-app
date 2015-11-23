@@ -10,7 +10,7 @@ verifyAccount.config(function($stateProvider) {
     $stateProvider
         .state('email', {
             name: 'email',
-            templateUrl: "modules/account/verify/email.html",
+            templateUrl: "/modules/account/verify/email.html",
             controller: function ($scope, $http, $state, verifyModel) {
                 $scope.email = '';
                 $scope.bdisabled = true;
@@ -42,7 +42,7 @@ verifyAccount.config(function($stateProvider) {
         })
         .state('thanks', {
             name: 'thanks',
-            templateUrl: "modules/account/verify/thanks.html",
+            templateUrl: "/modules/account/verify/thanks.html",
             controller: function ($scope, verifyModel) {
                 $scope.email = verifyModel.email;
             }

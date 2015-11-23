@@ -9,18 +9,18 @@ help.config(function($stateProvider) {
     $stateProvider
         .state('welcome', {
             name: 'welcome',
-            templateUrl: "modules/signin/help/welcome.html"
+            templateUrl: "/modules/signin/help/welcome.html"
         })
         .state('thanks', {
             name: 'thanks',
-            templateUrl: "modules/signin/help/thanks.html",
+            templateUrl: "/modules/signin/help/thanks.html",
             controller: function ($scope, helpFieldState) {
                 $scope.email = helpFieldState.email;
             }
         })
         .state('forgotpassword', {
             name: 'forgotpassword',
-            templateUrl: "modules/signin/help/forgotpassword.html",
+            templateUrl: "/modules/signin/help/forgotpassword.html",
             controller: function($scope, $state, $http, helpFieldState) {
                 $scope.bdisabled = true;
                 $scope.email = '';

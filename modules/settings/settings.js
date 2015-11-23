@@ -9,9 +9,9 @@ settings.config(function($stateProvider) {
             name: 'main',
             views: {
                 '': { templateUrl: 'settings.html' },
-                'topbar': { templateUrl: 'modules/shared/topbar.html' },
+                'topbar': { templateUrl: '/modules/shared/topbar.html' },
                 'sidebar': {
-                    templateUrl: 'modules/shared/sidebar.html',
+                    templateUrl: '/modules/shared/sidebar.html',
                     controller: function($scope, walletModel, walletManager) {
                         $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
                             if (newValue !== oldValue) {
@@ -20,7 +20,7 @@ settings.config(function($stateProvider) {
                         });
                     }
                 },
-                'content': { templateUrl: 'modules/settings/main.html',
+                'content': { templateUrl: '/modules/settings/main.html',
                     controller: function ($scope, $cookieStore, $http, Base64, walletManager, walletModel) {
                         var run = function() {
                             var wallet = walletModel.selectedWallet;

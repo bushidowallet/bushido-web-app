@@ -1,5 +1,7 @@
 var transactions = angular.module('transactions', ['app', 'ui.router']);
 
+TableTools.DEFAULTS.sSwfPath = "/swf/copy_csv_xls_pdf.swf";
+
 transactions.config(function($stateProvider) {
     $stateProvider
         .state('main', {
@@ -7,10 +9,10 @@ transactions.config(function($stateProvider) {
             views: {
                 '': { templateUrl: 'transactions.html' },
                 'topbar': {
-                    templateUrl: 'modules/shared/topbar.html'
+                    templateUrl: '/modules/shared/topbar.html'
                 },
                 'sidebar': {
-                    templateUrl: 'modules/shared/sidebar.html',
+                    templateUrl: '/modules/shared/sidebar.html',
                     controller: function($scope, walletModel, walletManager) {
                         $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
                             if (newValue !== oldValue) {
@@ -20,7 +22,7 @@ transactions.config(function($stateProvider) {
                     }
                 },
                 'content' : {
-                    templateUrl: 'modules/transactions/main.html',
+                    templateUrl: '/modules/transactions/main.html',
                     controller: function ($scope, $cookieStore, walletModel) {
                         var run = function run(a) {
                             var url = $scope.config.urlBase + '/api/v2/wallet/transactions/dt?key=' + $scope.model.selectedWallet.key + "&account=" + a;

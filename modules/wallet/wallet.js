@@ -4,16 +4,17 @@
 var wallet = angular.module('wallet', ['app', 'ui.router']);
 
 wallet.config(function($stateProvider) {
+
     $stateProvider
         .state('main', {
             name: 'main',
             views: {
                 '' : { templateUrl: 'wallet.html' },
                 'topbar' : {
-                    templateUrl : 'modules/shared/topbar.html'
+                    templateUrl : '/modules/shared/topbar.html'
                 },
                 'sidebar' : {
-                    templateUrl : 'modules/shared/sidebar.html',
+                    templateUrl : '/modules/shared/sidebar.html',
                     controller: function($scope, walletModel, walletManager) {
                         $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
                             if (newValue !== oldValue) {
@@ -22,7 +23,7 @@ wallet.config(function($stateProvider) {
                         });
                     }
                 },
-                'content' : { templateUrl : 'modules/wallet/main.html',
+                'content' : { templateUrl : '/modules/wallet/main.html',
                     controller: function ($scope, $cookieStore, $http, Base64, $window, walletModel) {
                         $scope.balance = {'confirmed': 0, 'unconfirmed': 0};
                         $scope.qrCodeString = $scope.config.defaultRecipientAddress;
@@ -37,7 +38,7 @@ wallet.config(function($stateProvider) {
                             $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($cookieStore.get('username') + ':' + $cookieStore.get('password'));
                             console.log('Initializing currency top up: ' + $cookieStore.get('username') + ' ' + $cookieStore.get('password') + ' auth header: ' + $http.defaults.headers.common['Authorization']);
                             var currWallet = $scope.model.selectedWallet;
-                            var req = { accounts: currWallet.accounts, key: currWallet.key, owner: currWallet.owner, settings: currWallet.settings, info: currWallet.info };
+                            var req = { accounts: [], key: currWallet.key, owner: currWallet.owner, settings: [], info: null };
                             $http.post(url, JSON.stringify(req)).success(function(data) {
                                 $scope.control = data.payload;
                                 openGateway();

@@ -10,7 +10,7 @@ pos.config(function($stateProvider) {
             name: 'main',
             views: {
                 '': { templateUrl: 'pos.html' },
-                'content': { templateUrl: 'modules/pos/main.html',
+                'content': { templateUrl: '/modules/pos/main.html',
                     controller: function ($scope) {
                         $scope.label = "Initializing... Please wait...";
                         var run = function (a, qrcode) {

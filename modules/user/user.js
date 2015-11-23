@@ -9,9 +9,9 @@ user.config(function($stateProvider) {
             name: 'main',
             views: {
                 '': { templateUrl: 'user.html' },
-                'topbar': { templateUrl: 'modules/shared/topbar.html' },
+                'topbar': { templateUrl: '/modules/shared/topbar.html' },
                 'sidebar': {
-                    templateUrl: 'modules/shared/sidebar.html',
+                    templateUrl: '/modules/shared/sidebar.html',
                     controller: function($scope, walletModel, walletManager) {
                         $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
                             if (newValue !== oldValue) {
@@ -20,7 +20,7 @@ user.config(function($stateProvider) {
                         });
                     }
                 },
-                'content': { templateUrl: 'modules/user/main.html' }
+                'content': { templateUrl: '/modules/user/main.html' }
             }
         });
 });

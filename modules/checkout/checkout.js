@@ -7,7 +7,7 @@ checkout.config(function($stateProvider) {
     $stateProvider
         .state('keypad', {
             name: 'keypad',
-            templateUrl: "modules/checkout/keypad.html",
+            templateUrl: "/modules/checkout/keypad.html",
             controller: function ($scope, $state) {
                 $scope.requestPayment = function() {
                     $state.go('inprogress');
@@ -16,7 +16,7 @@ checkout.config(function($stateProvider) {
         })
         .state('inprogress', {
             name: 'inprogress',
-            templateUrl: "modules/checkout/inprogress.html",
+            templateUrl: "/modules/checkout/inprogress.html",
             controller: function ($scope, $state) {
                 var qrcode;
                 var renderQR = function(a, qrcode) {
@@ -113,7 +113,7 @@ checkout.config(function($stateProvider) {
         })
         .state('thanks', {
             name: 'thanks',
-            templateUrl: "modules/checkout/thanks.html"
+            templateUrl: "/modules/checkout/thanks.html"
         })
 });
 
