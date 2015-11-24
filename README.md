@@ -3,6 +3,7 @@ Bushido Web Wallet Application
 
 # required nginx server settings
 
+```
 server {
     listen       80;
     server_name  localhost;
@@ -76,3 +77,4 @@ server {
         root C:/Dev/code/bushido/bushido-web-app/modules/wallet;
     }
 }
+```
