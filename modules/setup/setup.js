@@ -14,7 +14,7 @@ setup.config(function($stateProvider) {
         })
         .state('wallet', {
             name: 'wallet',
-            templateUrl: "/modules/signup/wallet.html",
+            templateUrl: "/modules/shared/wallet.html",
             controller: function ($scope, $http, $state, Base64, $cookieStore) {
                 var checkEntropy = function (str) {
                     if (str.length < 20) {

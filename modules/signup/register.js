@@ -166,7 +166,7 @@ register.config(function($stateProvider) {
         })
         .state('walletSetup', {
             name: 'walletSetup',
-            templateUrl: "/modules/signup/wallet.html",
+            templateUrl: "/modules/shared/wallet.html",
             controller: function ($scope, signupModel, $state, $http) {
                 var checkEntropy = function (str) {
                     if (str.length < 20) {
