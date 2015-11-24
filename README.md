@@ -13,68 +13,68 @@ server {
     }
 
     location / {
-        root   C:/Dev/code/bushido/bushido-web-app;
+        root   html/app/bushido-web-app;
         index  index.html;
     }
 
     location /login {
-        root C:/Dev/code/bushido/bushido-web-app/modules/signin;
+        root html/app/modules/signin;
     }
 
     location /register {
-        root C:/Dev/code/bushido/bushido-web-app/modules/signup;
+        root html/app/modules/signup;
     }
 
     location /help {
-        root C:/Dev/code/bushido/bushido-web-app/modules/signin/help;
+        root html/app/modules/signin/help;
     }
 
     location /verify {
-        root C:/Dev/code/bushido/bushido-web-app/modules/account/verify;
+        root html/app/modules/account/verify;
     }
 
     location /confirm {
-        root C:/Dev/code/bushido/bushido-web-app/modules/account/verify/confirm;
+        root html/app/modules/account/verify/confirm;
     }
 
     location /checkout {
-        root C:/Dev/code/bushido/bushido-web-app/modules/checkout;
+        root html/app/modules/checkout;
     }
 
     location /docs {
-        root C:/Dev/code/bushido/bushido-web-app/modules/docs;
+        root html/app/modules/docs;
     }
 
     location /export {
-        root C:/Dev/code/bushido/bushido-web-app/modules/export;
+        root html/app/modules/export;
     }
 
     location /password {
-        root C:/Dev/code/bushido/bushido-web-app/modules/password;
+        root html/app/modules/password;
     }
 
     location /pos {
-        root C:/Dev/code/bushido/bushido-web-app/modules/pos;
+        root html/app/modules/pos;
     }
 
     location /settings {
-        root C:/Dev/code/bushido/bushido-web-app/modules/settings;
+        root html/app/modules/settings;
     }
 
     location /setup {
-        root C:/Dev/code/bushido/bushido-web-app/modules/setup;
+        root html/app/modules/setup;
     }
 
     location /transactions {
-        root C:/Dev/code/bushido/bushido-web-app/modules/transactions;
+        root html/app/modules/transactions;
     }
 
     location /user {
-        root C:/Dev/code/bushido/bushido-web-app/modules/user;
+        root html/app/modules/user;
     }
 
     location /wallet {
-        root C:/Dev/code/bushido/bushido-web-app/modules/wallet;
+        root html/app/modules/wallet;
     }
 }
 ```
