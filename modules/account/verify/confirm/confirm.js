@@ -4,7 +4,7 @@ account.config(function($stateProvider) {
     $stateProvider
         .state('email', {
             name: 'email',
-            templateUrl: "/modules/account/email.html",
+            templateUrl: "/modules/account/verify/confirm/email.html",
             controller: function ($scope, $http, $state) {
                 $scope.email = '';
                 $scope.bdisabled = true;
@@ -35,12 +35,12 @@ account.config(function($stateProvider) {
         })
         .state('thanks', {
             name: 'thanks',
-            templateUrl: "/modules/account/thanks.html"
+            templateUrl: "/modules/account/verify/confirm/thanks.html"
         })
 });
 
 account.controller('accountController', ['$state', '$scope', 'appConfig', function ($state, $scope, appConfig) {
-    $scope.env = $.QueryString['env'];
+    $scope.env = getEnv();
     $scope.t = $.QueryString['t'];
     $scope.config = appConfig.init($scope.env);
     var renderState = function (name) {

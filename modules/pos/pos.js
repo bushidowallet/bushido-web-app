@@ -70,7 +70,7 @@ pos.config(function($stateProvider) {
 
 pos.controller('posController', ['$state', '$scope', 'appConfig', function ($state, $scope, appConfig) {
     $scope.walletId = $.QueryString["walletId"];
-    $scope.env = $.QueryString['env'];
+    $scope.env = getEnv();
     $scope.account  = parseInt($.QueryString["account"], 10);
     $scope.config = appConfig.init($scope.env);
     $state.go('main');

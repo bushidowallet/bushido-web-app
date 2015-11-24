@@ -81,7 +81,7 @@ passw.config(function($stateProvider) {
 });
 
 passw.controller('passwController', ['$scope', '$http', '$state', 'appConfig', function ($scope, $http, $state, appConfig) {
-    $scope.env = $.QueryString['env'];
+    $scope.env = getEnv();
     $scope.t = $.QueryString['t'];
     $scope.config = appConfig.init($scope.env);
     var init = function() {

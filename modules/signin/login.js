@@ -30,9 +30,9 @@ login.config(function($stateProvider) {
                                 $cookieStore.put('wallets', data.wallets);
                                 console.log("Wallets: " + data.wallets.length);
                                 if (data.wallets.length >= 1) {
-                                    window.location.href = '../wallet/wallet.html';
+                                    window.location.href = 'wallet.html';
                                 } else {
-                                    window.location.href = '../setup/setup.html';
+                                    window.location.href = 'setup.html';
                                 }
                                 $scope.loginerror = false;
                             } else {
@@ -94,14 +94,13 @@ login.config(function($stateProvider) {
 });
 
 login.controller('loginController', ['$state', '$scope', '$cookieStore', 'appConfig', function ($state, $scope, $cookieStore, appConfig) {
-    $scope.env = $.QueryString['env'];
+    $scope.env = getEnv();
     $scope.config = appConfig.init($scope.env);
     $scope.loginerror = false;
     $cookieStore.remove('username');
     $cookieStore.remove('password');
     $cookieStore.remove('selectedWallet');
     $cookieStore.remove('rootKeyHash');
-    $cookieStore.remove('env');
     $cookieStore.remove('user');
     $cookieStore.remove('wallets');
     $cookieStore.remove('selectedAccount');

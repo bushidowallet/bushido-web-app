@@ -78,7 +78,7 @@ setup.config(function($stateProvider) {
         })
 });
 setup.controller('setupController', ['$scope', '$state', '$cookieStore', 'appConfig', function ($scope, $state, $cookieStore, appConfig) {
-    $scope.config = appConfig.init($cookieStore.get('env'));
+    $scope.config = appConfig.init(getEnv());
     $scope.user = $cookieStore.get('user');
     $state.go('welcome');
 }]);

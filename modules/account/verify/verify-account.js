@@ -50,7 +50,7 @@ verifyAccount.config(function($stateProvider) {
 });
 
 verifyAccount.controller('verifyAccountController', ['$state', '$scope', 'appConfig', function ($state, $scope, appConfig) {
-    $scope.env = $.QueryString['env'];
+    $scope.env = getEnv();
     $scope.config = appConfig.init($scope.env);
     var renderState = function (name) {
         $state.go(name);

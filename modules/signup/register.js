@@ -229,7 +229,7 @@ register.config(function($stateProvider) {
         })
 });
 register.controller('registerController', ['$scope', '$state', 'appConfig', function ($scope, $state, appConfig) {
-    $scope.env = $.QueryString['env'];
+    $scope.env = getEnv();
     $scope.config = appConfig.init($scope.env);
     $scope.welcomeScreen = function() {
         renderState('welcome');

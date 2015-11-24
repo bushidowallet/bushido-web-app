@@ -18,6 +18,10 @@ app.config(function($cookiesProvider) {
     })(window.location.search.substr(1).split('&'))
 })(jQuery);
 
+var getEnv = function() {
+    return window.location.hostname == 'localhost' ? 'dev' : 'prod';
+};
+
 app.factory('appConfig', function () {
     var AppConfig = function () {
         this.defaultRecipientAddress = '1KxRfiqcNi2GbpdN3pzuQHgewShmeNW9g1';
@@ -69,7 +73,7 @@ app.factory('walletManager', function() {
     return {
         init: function ($cookieStore, $scope, appConfig, walletModel) {
             var model = walletModel.init($cookieStore.get('user'), $cookieStore.get('wallets'), $cookieStore.get('selectedWallet'), $cookieStore.get('selectedAccount'));
-            var config = appConfig.init($cookieStore.get('env'));
+            var config = appConfig.init(getEnv());
             $scope.model = model;
             $scope.config = config;
             m = model;

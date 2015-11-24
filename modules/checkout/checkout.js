@@ -120,7 +120,7 @@ checkout.config(function($stateProvider) {
 checkout.controller('checkoutController', ['$state', '$scope', 'appConfig', function ($state, $scope, appConfig) {
     $scope.walletId = $.QueryString["walletId"];
     $scope.account  = parseInt($.QueryString["account"], 10);
-    $scope.env = $.QueryString['env'];
+    $scope.env = getEnv();
     $scope.config = appConfig.init($scope.env);
     $scope.instrument = $.QueryString["instrument"];
     $scope.amount = 0;
