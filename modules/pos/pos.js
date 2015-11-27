@@ -32,7 +32,11 @@ pos.config(function($stateProvider) {
                             function getAddressHandler (message) {
                                 $scope.currentAddress = message.payload.currentAddress;
                                 $scope.$apply(function(){
-                                    $scope.label = "Scan code to pay...";
+                                    if ($scope.showAddr == false) {
+                                        $scope.label = "Scan code to pay...";
+                                    } else {
+                                        $scope.label = $scope.currentAddress;
+                                    }
                                 });
                                 makeCode($scope.currentAddress);
                             }
@@ -46,7 +50,11 @@ pos.config(function($stateProvider) {
                                         setTimeout(function () {
                                             $scope.currentAddress = message.payload.currentAddress;
                                             $scope.$apply(function(){
-                                                $scope.label = "Scan code to pay...";
+                                                if ($scope.showAddr == false) {
+                                                    $scope.label = "Scan code to pay...";
+                                                } else {
+                                                    $scope.label = $scope.currentAddress;
+                                                }
                                             });
                                             makeCode($scope.currentAddress);
                                         }, 10000);
@@ -65,11 +73,13 @@ pos.config(function($stateProvider) {
                 }
             }
         });
-
 });
 
 pos.controller('posController', ['$state', '$scope', 'appConfig', function ($state, $scope, appConfig) {
     $scope.walletId = $.QueryString["walletId"];
+    $scope.showLogo = ($.QueryString["logo"] == 'true') ? true: false;
+    $scope.showAddr = ($.QueryString["showAddr"] == 'true') ? true : false;
+    $scope.renderBg = ($.QueryString["renderBg"] == 'true') ? true : false;
     $scope.env = getEnv();
     $scope.account  = parseInt($.QueryString["account"], 10);
     $scope.config = appConfig.init($scope.env);
