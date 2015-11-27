@@ -67,6 +67,7 @@ pos.config(function($stateProvider) {
                                 width : 180,
                                 height: 180
                             });
+                            $('#posBody').css('backgroundColor', '#FFFFFF');
                             run($scope.account, qrcode);
                         });
                     }
@@ -79,7 +80,6 @@ pos.controller('posController', ['$state', '$scope', 'appConfig', function ($sta
     $scope.walletId = $.QueryString["walletId"];
     $scope.showLogo = ($.QueryString["logo"] == 'true') ? true: false;
     $scope.showAddr = ($.QueryString["showAddr"] == 'true') ? true : false;
-    $scope.renderBg = ($.QueryString["renderBg"] == 'true') ? true : false;
     $scope.env = getEnv();
     $scope.account  = parseInt($.QueryString["account"], 10);
     $scope.config = appConfig.init($scope.env);

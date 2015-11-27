@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="pos" ng-controller="posController">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,9 +13,8 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 </head>
-<body>
-    <div ng-app="pos" ng-controller="posController">
-        <canvas id="canvas" height="971" width="1920" ng-show="{{renderBg}}"></canvas>
+<body id="posBody">
+    <div>
         <div ui-view="content"></div>
     </div>
     <script src="/js/lib/jquery/jquery.js"></script>
