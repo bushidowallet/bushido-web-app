@@ -2,3 +2,4 @@
 *.iml
 *.config
 node_modules
+bower_components

@@ -1,0 +1,29 @@
+{
+  "name": "bushido-web-app",
+  "description": "Bushido Web Wallet Application",
+  "main": "",
+  "authors": [
+    "Robert Jesionek"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "bitcoin",
+    "web",
+    "wallet"
+  ],
+  "homepage": "https://github.com/bushidowallet/bushido-web-app",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-cookies": "~1.4.8",
+    "angular-ui-router": "~0.2.15",
+    "angular": "~1.4.8"
+  }
+}

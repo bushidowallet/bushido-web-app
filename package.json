@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/bushidowallet/bushido-web-app#readme",
   "devDependencies": {
+    "bower": "^1.7.0",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.15",
     "karma-chrome-launcher": "^0.2.2",
