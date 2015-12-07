@@ -1,5 +1,4 @@
-target/
-template/
 .idea
 *.iml
 *.config
+node_modules

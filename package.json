@@ -1,0 +1,32 @@
+{
+  "name": "bushido-web-app",
+  "version": "1.0.0",
+  "description": "Bushido Web Wallet Application",
+  "scripts": {
+    "pretest": "npm install",
+    "test": "karma start karma.conf.js"    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bushidowallet/bushido-web-app.git"
+  },
+  "keywords": [
+    "bitcoin",
+    "web",
+    "wallet"
+  ],
+  "author": "Robert Jesionek",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bushidowallet/bushido-web-app/issues"
+  },
+  "homepage": "https://github.com/bushidowallet/bushido-web-app#readme",
+  "devDependencies": {
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.15",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-jasmine": "^0.2.2",
+    "karma-junit-reporter": "^0.3.8"
+  }
+}
