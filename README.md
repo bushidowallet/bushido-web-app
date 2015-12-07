@@ -1,5 +1,5 @@
 # bushido-web-app
-Bushido Web Wallet Application
+Bushido Web Wallet Application [![Build Status](https://travis-ci.org/bushidowallet/bushido-web-app.svg?branch=master)](https://travis-ci.org/bushidowallet/bushido-web-app)
 
 # required nginx server settings
 
