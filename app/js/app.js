@@ -6,7 +6,7 @@ app.config(function($cookiesProvider) {
 
 (function($) {
     $.QueryString = (function(a) {
-        if (a == "") return {};
+        if (a === "") return {};
         var b = {};
         for (var i = 0; i < a.length; ++i)
         {
@@ -15,7 +15,7 @@ app.config(function($cookiesProvider) {
             b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
         }
         return b;
-    })(window.location.search.substr(1).split('&'))
+    })(window.location.search.substr(1).split('&'));
 })(jQuery);
 
 var getEnv = function() {
@@ -33,7 +33,7 @@ app.factory('appConfig', function () {
         this.socketServerUrl = (env == 'prod') ? 'https://websockets.bushidowallet.com/stomp' : 'http://localhost:15674/stomp';
         console.log('Initialized AppConfig for environment ' + env);
         return this;
-    }
+    };
     return new AppConfig();
 });
 
@@ -43,21 +43,21 @@ app.factory('walletModel', function () {
     WalletModel.prototype.init = function (user, wallets, selectedWallet, selectedAccount) {
         this.user = user;
         this.wallets = wallets;
-        this.selectedWallet = (selectedWallet != null) ? selectedWallet : wallets[0];
-        var a = (selectedAccount != null) ? selectedAccount.account : this.selectedWallet.accounts[0].account;
+        this.selectedWallet = (selectedWallet !== null) ? selectedWallet : wallets[0];
+        var a = (selectedAccount !== null) ? selectedAccount.account : this.selectedWallet.accounts[0].account;
         var sAccount;
         for (var i = 0; i < this.selectedWallet.accounts.length; i++) {
             if (this.selectedWallet.accounts[i].account == a) {
                 sAccount = this.selectedWallet.accounts[i];
             }
         }
-        if (sAccount != null) {
+        if (sAccount !== null) {
             this.selectedAccount = sAccount;
         } else {
             console.log('Unable to find account ' + a + ' on wallet ' + this.selectedWallet.key);
         }
         return this;
-    }
+    };
     return new WalletModel();
 });
 
@@ -69,7 +69,7 @@ app.factory('walletManager', function() {
         c.put('wallets', m.wallets);
         c.put('selectedWallet', m.selectedWallet);
         c.put('selectedAccount', m.selectedAccount);
-    }
+    };
     return {
         init: function ($cookieStore, $scope, appConfig, walletModel) {
             var model = walletModel.init($cookieStore.get('user'), $cookieStore.get('wallets'), $cookieStore.get('selectedWallet'), $cookieStore.get('selectedAccount'));
@@ -104,7 +104,7 @@ app.factory('walletManager', function() {
             }
             persist();
         }
-    }
+    };
 });
 
 app.factory('Base64', function() {
@@ -209,7 +209,7 @@ $(function() {
 
     var url = window.location;
     var element = $('ul.nav a').filter(function() {
-        return this.href == url || url.href.indexOf(this.href) == 0;
+        return this.href == url || url.href.indexOf(this.href) === 0;
     }).addClass('active').parent().parent().addClass('in').parent();
     if (element.is('li')) {
         element.addClass('active');

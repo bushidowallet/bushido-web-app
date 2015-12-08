@@ -1,8 +1,9 @@
 var gulp = require('gulp');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 var Server = require('karma').Server;
 
 gulp.task('test', function (done) {
-    console.log(__dirname);
     new Server({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true,
@@ -10,4 +11,10 @@ gulp.task('test', function (done) {
     }, done).start();
 });
 
-gulp.task('default', ['test']);
+gulp.task('lint', function() {
+    return gulp.src('./app/js/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter(stylish));
+});
+
+gulp.task('default', ['test', 'lint']);
