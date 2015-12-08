@@ -6,18 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Bushidō Manangement And Analytics</title>
-    <link href="/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/plugins/dataTables.custom.css" rel="stylesheet">
-    <link href="/css/plugins/dataTables.tableTools.css" rel="stylesheet">
+    <title>Bushido Manangement And Analytics</title>
+    <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="/components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/css/dataTables.custom.css" rel="stylesheet">
     <link href="/css/background.css" rel="stylesheet">
-    <link href="/css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <link href="/css/plugins/dataTables.bootstrap.css" rel="stylesheet">
-    <link href="/css/sb-admin-2.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
-    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 </head>
 <style>
     body { font-size: 140%; }
@@ -27,7 +23,7 @@
 <body>
     <div id="wrapper">
         <canvas id="canvas" height="971" width="1920"></canvas>
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: #1574A8">
+        <nav class="navbar navbar-default navbar-static-top topbar" role="navigation">
             <div class="navbar-header" style="background-color: #1574A8">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -35,22 +31,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="../wallet/wallet.html" style="color:#ffffff">Bushidō Manangement And Analytics</a>
+                <a class="navbar-brand" href="wallet.html" style="color:#ffffff">Bushido Manangement And Analytics</a>
             </div>
             <div ui-view="topbar"></div>
             <div ui-view="sidebar"></div>
         </nav>
         <div ui-view="content"></div>
     </div>
-    <script src="/js/lib/jquery/jquery.js"></script>
-    <script src="/js/lib/bootstrap/bootstrap.min.js"></script>
-    <script src="/js/lib/plugins/metisMenu/metisMenu.min.js"></script>
-    <script src="/js/lib/sb-admin-2.js"></script>
-    <script src="/js/lib/sockjs-0.3.4.js"></script>
-    <script src="/js/lib/stomp.js"></script>
-    <script src="/js/lib/angular/angular.min.js"></script>
-    <script src="/js/lib/angular/angular-cookies.min.js"></script>
-    <script src="/js/lib/angular/angular-ui-router.min.js"></script>
+    <script src="/components/jquery/dist/jquery.min.js"></script>
+    <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/components/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="/components/angular/angular.min.js"></script>
+    <script src="/components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="/components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/components/sockjs-client/dist/sockjs-0.3.4.min.js"></script>
+    <script src="/components/stomp-websocket/lib/stomp.min.js"></script>
+    <script src="/components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="/js/lib/crypto/jsbn/ec.js"></script>
     <script src="/js/lib/crypto/jsbn/rng.js"></script>
     <script src="/js/lib/crypto/jsbn/prng4.js"></script>
@@ -66,12 +63,9 @@
     <script src="/js/lib/crypto/ecdsa.js"></script>
     <script src="/js/lib/crypto/eckey.js"></script>
     <script src="/js/lib/crypto/extendedkey.js"></script>
-    <script src="/js/lib/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="/js/lib/plugins/dataTables/dataTables.bootstrap.js"></script>
-    <script src="/js/lib/plugins/dataTables/dataTables.tableTools.js"></script>
     <script src="/js/app.js"></script>
     <script src="/js/background.js"></script>
-    <script src="/modules/export/keygen.js"></script>
-    <script src="/modules/export/export.js"></script>
+    <script src="keygen.js"></script>
+    <script src="export.js"></script>
 </body>
 </html>

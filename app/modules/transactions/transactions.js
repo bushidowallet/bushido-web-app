@@ -1,7 +1,5 @@
 var transactions = angular.module('transactions', ['app', 'ui.router']);
 
-TableTools.DEFAULTS.sSwfPath = "/swf/copy_csv_xls_pdf.swf";
-
 transactions.config(function($stateProvider) {
     $stateProvider
         .state('main', {

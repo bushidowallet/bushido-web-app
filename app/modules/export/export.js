@@ -1,7 +1,5 @@
 var exportKeys = angular.module('exportKeys', ['app', 'ui.router']);
 
-TableTools.DEFAULTS.sSwfPath = "/swf/copy_csv_xls_pdf.swf";
-
 exportKeys.config(function($stateProvider) {
 
     $stateProvider
