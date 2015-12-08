@@ -1,9 +1,13 @@
+/*jshint browser: true */
+
 var app = angular.module("app", ['ngCookies']);
 
 app.config(function($cookiesProvider) {
     $cookiesProvider.defaults.path = '/';
 });
 
+
+/* globals jQuery */
 (function($) {
     $.QueryString = (function(a) {
         if (a === "") return {};
@@ -43,15 +47,15 @@ app.factory('walletModel', function () {
     WalletModel.prototype.init = function (user, wallets, selectedWallet, selectedAccount) {
         this.user = user;
         this.wallets = wallets;
-        this.selectedWallet = (selectedWallet !== null) ? selectedWallet : wallets[0];
-        var a = (selectedAccount !== null) ? selectedAccount.account : this.selectedWallet.accounts[0].account;
+        this.selectedWallet = (!!selectedWallet) ? selectedWallet : wallets[0];
+        var a = (!!selectedAccount) ? selectedAccount.account : this.selectedWallet.accounts[0].account;
         var sAccount;
         for (var i = 0; i < this.selectedWallet.accounts.length; i++) {
             if (this.selectedWallet.accounts[i].account == a) {
                 sAccount = this.selectedWallet.accounts[i];
             }
         }
-        if (sAccount !== null) {
+        if (!!sAccount) {
             this.selectedAccount = sAccount;
         } else {
             console.log('Unable to find account ' + a + ' on wallet ' + this.selectedWallet.key);
@@ -150,7 +154,7 @@ app.factory('Base64', function() {
             var i = 0;
             var base64test = /[^A-Za-z0-9\+\/\=]/g;
             if (base64test.exec(input)) {
-                alert("There were invalid base64 characters in the input text.\n" +
+                console.log("There were invalid base64 characters in the input text.\n" +
                 "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
                 "Expect errors in decoding.");
             }
@@ -177,41 +181,4 @@ app.factory('Base64', function() {
             return output;
         }
     };
-});
-
-$(function() {
-
-    $('#side-menu').metisMenu();
-
-});
-
-//Loads the correct sidebar on window load,
-//collapses the sidebar on window resize.
-// Sets the min-height of #page-wrapper to window size
-$(function() {
-    $(window).bind("load resize", function() {
-        topOffset = 50;
-        width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
-        if (width < 768) {
-            $('div.navbar-collapse').addClass('collapse');
-            topOffset = 100; // 2-row-menu
-        } else {
-            $('div.navbar-collapse').removeClass('collapse');
-        }
-
-        height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
-        height = height - topOffset;
-        if (height < 1) height = 1;
-        if (height > topOffset) {
-            $("#page-wrapper").css("min-height", (height) + "px");
-        }
-    });
-
-    var url = window.location;
-    var element = $('ul.nav a').filter(function() {
-        return this.href == url || url.href.indexOf(this.href) === 0;
-    }).addClass('active').parent().parent().addClass('in').parent();
-    if (element.is('li')) {
-        element.addClass('active');
-    }
 });

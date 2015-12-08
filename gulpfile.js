@@ -11,10 +11,10 @@ gulp.task('test', function (done) {
     }, done).start();
 });
 
-gulp.task('lint', function() {
+gulp.task('jshint', function() {
     return gulp.src(['./app/js/*.js', './app/modules/*/*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter(stylish));
 });
 
-gulp.task('default', ['test', 'lint']);
+gulp.task('default', ['test', 'jshint']);

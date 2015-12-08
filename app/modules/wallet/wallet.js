@@ -1,6 +1,9 @@
 /**
  * Created by Jesion on 2015-01-10.
  */
+
+/*jshint browser: true */
+
 var wallet = angular.module('wallet', ['app', 'ui.router']);
 
 wallet.config(function($stateProvider) {
@@ -16,7 +19,7 @@ wallet.config(function($stateProvider) {
                 'sidebar' : {
                     templateUrl : '/modules/shared/sidebar.html',
                     controller: function($scope, walletModel, walletManager) {
-                        $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
+                        $scope.$watch(function () { return walletModel.selectedAccount; }, function (newValue, oldValue) {
                             if (newValue !== oldValue) {
                                 walletManager.save();
                             }
@@ -35,21 +38,22 @@ wallet.config(function($stateProvider) {
                         $scope.selectedAccount = walletModel.selectedAccount;
                         $scope.topUp = function() {
                             var url = $scope.config.urlBase + '/api/v2/wallet/topup/init';
-                            $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($cookieStore.get('username') + ':' + $cookieStore.get('password'));
-                            console.log('Initializing currency top up: ' + $cookieStore.get('username') + ' ' + $cookieStore.get('password') + ' auth header: ' + $http.defaults.headers.common['Authorization']);
+                            $http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode($cookieStore.get('username') + ':' + $cookieStore.get('password'));
+                            console.log('Initializing currency top up: ' + $cookieStore.get('username') + ' ' + $cookieStore.get('password') + ' auth header: ' + $http.defaults.headers.common.Authorization);
                             var currWallet = $scope.model.selectedWallet;
                             var req = { accounts: [], key: currWallet.key, owner: currWallet.owner, settings: [], info: null };
                             $http.post(url, JSON.stringify(req)).success(function(data) {
                                 $scope.control = data.payload;
                                 openGateway();
                             }).error(function(data) {
+                                console.log('Errored: ' + data);
                             });
                             function openGateway() {
                                 var user =  $cookieStore.get('user');
                                 var topuplink = $scope.config.dotPayUrlBase + '&amount=' + $scope.topUpValue + '&description=topup&firstname=' + user.firstName + '&lastname=' + user.lastName + '&email=' + user.email + '&control=' + $scope.control + '&api_version=dev';
                                 $window.open(topuplink);
                             }
-                        }
+                        };
                         var run = function (a, qrcode) {
                             console.log('Executing get address command for account ' + a);
                             function makeCode (t) {
@@ -114,13 +118,16 @@ wallet.config(function($stateProvider) {
                             }
                             function fundsInHandler (message) {
                                 var newTransaction = message.payload.tx;
-                                for (var i = 0; i < newTransaction.outputs.length; i++) {
-                                    if (newTransaction.outputs[i].toAddress == $scope.currentAddress) {
+                                function checkOutput(output) {
+                                    if (output.toAddress == $scope.currentAddress) {
                                         setTimeout(function () {
                                             $scope.currentAddress = message.payload.currentAddress;
                                             makeCode($scope.currentAddress);
                                         }, 10000);
                                     }
+                                }
+                                for (var i = 0; i < newTransaction.outputs.length; i++) {
+                                    checkOutput(newTransaction.outputs[i]);
                                 }
                                 updateBalance(message.payload.balance);
                             }
@@ -137,13 +144,14 @@ wallet.config(function($stateProvider) {
                                 height : 180
                             });
                             var qrcodeAllPurpose = new QRCode(document.getElementById('qrcodecAllPurpose'), {width: 180, height: 180});
-                            $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
+                            $scope.$watch(function () { return walletModel.selectedAccount; }, function (newValue, oldValue) {
                                 if (newValue !== oldValue) {
                                     $scope.selectedAccount = newValue;
                                     run(newValue.account, qrcode);
                                 }
                             });
                             $scope.$watch('qrCodeString', function(newValue, oldValue) {
+                                console.log('qr code changed from ' + oldValue);
                                 qrcodeAllPurpose.makeCode(newValue);
                             });
                             run(walletModel.selectedAccount.account, qrcode);
@@ -151,7 +159,7 @@ wallet.config(function($stateProvider) {
                     }
                 }
             }
-        })
+        });
 });
 
 wallet.controller('walletController', ['$state', '$cookieStore', '$scope', 'appConfig', 'walletModel', 'walletManager', function ($state, $cookieStore, $scope, appConfig, walletModel, walletManager) {
