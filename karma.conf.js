@@ -3,9 +3,9 @@ module.exports = function(config){
     reporters: ['progress'],
     basePath : './',
     files : [
-      'app/js/lib/angular/angular.js',
-      'app/js/lib/angular/angular-cookies.js',
-      'app/js/lib/angular/angular-ui-router.js',
+      'app/components/angular/angular.js',
+      'app/components/angular-cookies/angular-cookies.js',
+      'app/components/angular-ui-router/release/angular-ui-router.js',
       'app/modules/docs/*.js'
     ],
     autoWatch : true,
