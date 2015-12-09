@@ -3,7 +3,7 @@ var verifyAccount = angular.module('verifyAccount', ['app', 'ui.router']);
 verifyAccount.factory('verifyModel', function () {
     return {
         email: null
-    }
+    };
 });
 
 verifyAccount.config(function($stateProvider) {
@@ -16,7 +16,7 @@ verifyAccount.config(function($stateProvider) {
                 $scope.bdisabled = true;
                 $scope.$watch('email', function() {
                     console.log(isValidEmail($scope.email));
-                    $scope.bdisabled = isValidEmail($scope.email) == false;
+                    $scope.bdisabled = isValidEmail($scope.email) === false;
                 });
                 var isValidEmail = function (email) {
                     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -28,13 +28,13 @@ verifyAccount.config(function($stateProvider) {
                     var request = {email: $scope.email};
                     verifyModel.email = $scope.email;
                     $http.post(url, JSON.stringify(request)).success(function(data) {
-                        if (data.errors == null || data.errors.length == 0) {
+                        if (!data.errors || data.errors.length === 0) {
                             $scope.verifyerror = false;
                             $state.go('thanks');
                         } else {
                             $scope.verifyerror = true;
                         }
-                    }).error(function(data) {
+                    }).error(function() {
                         $scope.verifyerror = true;
                     });
                 };
@@ -46,7 +46,7 @@ verifyAccount.config(function($stateProvider) {
             controller: function ($scope, verifyModel) {
                 $scope.email = verifyModel.email;
             }
-        })
+        });
 });
 
 verifyAccount.controller('verifyAccountController', ['$state', '$scope', 'appConfig', function ($state, $scope, appConfig) {
@@ -54,8 +54,6 @@ verifyAccount.controller('verifyAccountController', ['$state', '$scope', 'appCon
     $scope.config = appConfig.init($scope.env);
     var renderState = function (name) {
         $state.go(name);
-    }
-    angular.element(document).ready(function () {
-        renderState('email');
-    });
+    };
+    renderState('email');
 }]);

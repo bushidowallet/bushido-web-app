@@ -11,6 +11,14 @@ gulp.task('test', function (done) {
     }, done).start();
 });
 
+gulp.task('test-local', function (done) {
+    new Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true,
+        browsers : ['Chrome']
+    }, done).start();
+});
+
 gulp.task('jshint', function() {
     return gulp.src(['./app/js/*.js', './app/modules/*/*.js'])
         .pipe(jshint())

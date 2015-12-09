@@ -33,6 +33,7 @@
     "sockjs-client": "~1.0.3",
     "datatables.net": "~1.10.10",
     "datatables.net-bs": "~1.10.10",
-    "webshim": "~1.15.10"
+    "webshim": "~1.15.10",
+    "angular-mocks": "~1.4.8"
   }
 }
