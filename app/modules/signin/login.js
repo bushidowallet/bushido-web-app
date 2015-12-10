@@ -20,12 +20,12 @@ login.config(function($stateProvider) {
                     var url = $scope.config.urlBase + '/api/v2/user/auth';
                     var request = {userIdOrEmail: $scope.userIdOrEmail, credential: $scope.password};
                     $http.post(url, JSON.stringify(request)).success(function(data) {
-                        if (data.errors == null || data.errors.length == 0) {
+                        if (!data.errors || data.errors.length === 0) {
                             $cookieStore.put('username', data.user.username);
                             $cookieStore.put('password', $scope.password);
                             $cookieStore.put('env', $scope.env);
                             console.log('Saving cookie key: env, value: ' + $scope.env);
-                            if (data.user.has2FAEnabled == false) {
+                            if (data.user.has2FAEnabled === false) {
                                 $cookieStore.put('user', data.user);
                                 $cookieStore.put('wallets', data.wallets);
                                 console.log("Wallets: " + data.wallets.length);
@@ -48,7 +48,7 @@ login.config(function($stateProvider) {
                                 $scope.loginerror = true;
                             }
                         }
-                    }).error(function(data) {
+                    }).error(function() {
                         $scope.loginerror = true;
                         $scope.errorMessage = "Login failed.";
                     });
@@ -63,16 +63,16 @@ login.config(function($stateProvider) {
                 $scope.loginerror = false;
                 $scope.doRequestSMS = function() {
                     var url = $scope.config.urlBase + '/api/v2/user/auth/code/token';
-                    $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.username + ':' + $cookieStore.get('password'));
+                    $http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode($scope.username + ':' + $cookieStore.get('password'));
                     var request = {username: $scope.username, enforceSms: true};
                     $http.post(url, JSON.stringify(request));
                 };
                 $scope.doLogin = function() {
                     var url = $scope.config.urlBase + '/api/v2/user/auth/code';
                     var request = {userIdOrEmail: $scope.username, credential: $scope.code};
-                    $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.username + ':' + $cookieStore.get('password'));
+                    $http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode($scope.username + ':' + $cookieStore.get('password'));
                     $http.post(url, JSON.stringify(request)).success(function(data) {
-                        if (data.errors == null || data.errors.length == 0) {
+                        if (!data.errors || data.errors.length === 0) {
                             $cookieStore.put('user', data.user);
                             $cookieStore.put('wallets', data.wallets);
                             console.log("Wallets: " + data.wallets.length);
@@ -80,17 +80,17 @@ login.config(function($stateProvider) {
                                 window.location.href = '/modules/wallet/wallet.html';
                             } else {
                                 window.location.href = '/modules/setup/setup.html';
-                            };
+                            }
                             $scope.loginerror = false;
                         } else {
                             $scope.loginerror = true;
                         }
-                    }).error(function(data) {
+                    }).error(function() {
                         $scope.loginerror = true;
                     });
                 };
             }
-        })
+        });
 });
 
 login.controller('loginController', ['$state', '$scope', '$cookieStore', 'appConfig', function ($state, $scope, $cookieStore, appConfig) {
