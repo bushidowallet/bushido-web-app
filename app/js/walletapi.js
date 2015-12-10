@@ -1,3 +1,5 @@
+/* jshint undef: true */
+
 var WalletApi;
 
 (function() {

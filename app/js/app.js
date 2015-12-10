@@ -6,7 +6,6 @@ app.config(function($cookiesProvider) {
     $cookiesProvider.defaults.path = '/';
 });
 
-
 /* globals jQuery */
 (function($) {
     $.QueryString = (function(a) {
@@ -22,9 +21,9 @@ app.config(function($cookiesProvider) {
     })(window.location.search.substr(1).split('&'));
 })(jQuery);
 
-var getEnv = function() {
+function getEnv() {
     return window.location.hostname == 'localhost' ? 'dev' : 'prod';
-};
+}
 
 app.factory('appConfig', function () {
     var AppConfig = function () {
