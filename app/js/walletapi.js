@@ -15,6 +15,7 @@ var WalletApi;
      * @param connectHandler - Handler that has to be notified when connection command's response is back
      * @param subscribeDestination - Desitnation for wallet server to client messaging ( '/exchange/e-wallet-updates/' )
      * @param sendDestination - Destination for client to server messaging ( '/queue/wallet' )
+     * @param readyHandler - A function to call when socket is connected and this class is ready to accept invoke calls
      * @returns {WalletApi}
      * @constructor
      */
@@ -27,7 +28,8 @@ var WalletApi;
                          connectPayload,
                          connectHandler,
                          subscribeDestination,
-                         sendDestination) {
+                         sendDestination,
+                         readyHandler) {
         var ws                    = new SockJS(serviceUrl);
         var client                = Stomp.over(ws);
         client.heartbeat.incoming = 0;
@@ -41,9 +43,12 @@ var WalletApi;
         this.walletId             = walletId;
         this.sendDestination      = sendDestination;
         this.observers            = observers;
-        this.on_connect = function(frame) {
+        this.on_connect = function() {
+            if (readyHandler) {
+                readyHandler.call(this);
+            }
             client.subscribe(subscribeDestination + walletId);
-            if (connectCommand != null) {
+            if (connectCommand) {
                 invoke(client, username, password, connectCommand, connectPayload, connectHandler, observers, walletId, sendDestination);
             }
         };
@@ -53,7 +58,7 @@ var WalletApi;
         client.onreceive = function(m) {
             var payload = JSON.parse(m.body);
             var index   = -1;
-            if (observers != null) {
+            if (observers) {
                 for (var i = 0; i < observers.length; i++) {
                     if (observers[i].type == 'notification') {
                         if (observers[i].command == payload.command) {
@@ -121,10 +126,10 @@ var WalletApi;
     };
 
     function invoke(client, username, password, command, payload, handler, observers, walletId, sendDestination, correlationId) {
-        if (correlationId == null) {
+        if (!correlationId) {
             correlationId = generateUUID();
         }
-        if (handler != null) {
+        if (handler) {
             observers.push(new MessageListener(correlationId, command, handler, 'rpc'));
         }
         console.log('Invoking ' + command + ' on wallet ' + walletId + ' with correlationId: ' + correlationId + '...');

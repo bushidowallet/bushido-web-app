@@ -19,18 +19,7 @@ checkout.config(function($stateProvider) {
             templateUrl: "/modules/checkout/inprogress.html",
             controller: function ($scope, $state) {
                 var qrcode;
-                var walletApi = new WalletApi($scope.config.socketServerUrl,
-                    'pos',
-                    'pos',
-                    $scope.walletId,
-                    false,
-                    null,
-                    null,
-                    null,
-                    '/exchange/v2e-wallet-updates/',
-                    '/queue/v2wallet')
-                    .addListener('BALANCE_CHANGE_RECEIVED', balanceChangeHandler)
-                    .connect();
+                var walletApi;
                 function makeCode (t) {
                     qrcode.makeCode(t);
                 }
@@ -101,7 +90,20 @@ checkout.config(function($stateProvider) {
                         height: 180
                     });
                     console.log('Is qr component ok: ' + (qrcode !== undefined  && qrcode !== null));
-                    init();
+                    walletApi = new WalletApi($scope.config.socketServerUrl,
+                        'pos',
+                        'pos',
+                        $scope.walletId,
+                        false,
+                        null,
+                        null,
+                        null,
+                        '/exchange/v2e-wallet-updates/',
+                        '/queue/v2wallet', function() {
+                            init();
+                        })
+                        .addListener('BALANCE_CHANGE_RECEIVED', balanceChangeHandler)
+                        .connect();
                 });
             }
         })
