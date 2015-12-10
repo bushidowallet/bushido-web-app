@@ -1,5 +1,3 @@
-var WalletApi;
-
 (function() {
 
     /**
@@ -18,7 +16,7 @@ var WalletApi;
      * @returns {WalletApi}
      * @constructor
      */
-    WalletApi = function(serviceUrl,
+      function WalletApi(serviceUrl,
                          username,
                          password,
                          walletId,
@@ -41,9 +39,9 @@ var WalletApi;
         this.walletId             = walletId;
         this.sendDestination      = sendDestination;
         this.observers            = observers;
-        this.on_connect = function(frame) {
+        this.on_connect = function() {
             client.subscribe(subscribeDestination + walletId);
-            if (connectCommand != null) {
+            if (connectCommand) {
                 invoke(client, username, password, connectCommand, connectPayload, connectHandler, observers, walletId, sendDestination);
             }
         };
@@ -53,7 +51,7 @@ var WalletApi;
         client.onreceive = function(m) {
             var payload = JSON.parse(m.body);
             var index   = -1;
-            if (observers != null) {
+            if (observers) {
                 for (var i = 0; i < observers.length; i++) {
                     if (observers[i].type == 'notification') {
                         if (observers[i].command == payload.command) {
@@ -90,7 +88,7 @@ var WalletApi;
             'walletId'        : this.walletId,
             'sendDestination' : this.sendDestination
         };
-    };
+    }
 
     WalletApi.prototype.connect = function() {
         this.client.connect(this.serviceUser, this.servicePassword, this.on_connect, this.on_error, '/');
@@ -121,10 +119,10 @@ var WalletApi;
     };
 
     function invoke(client, username, password, command, payload, handler, observers, walletId, sendDestination, correlationId) {
-        if (correlationId == null) {
+        if (!correlationId) {
             correlationId = generateUUID();
         }
-        if (handler != null) {
+        if (handler) {
             observers.push(new MessageListener(correlationId, command, handler, 'rpc'));
         }
         console.log('Invoking ' + command + ' on wallet ' + walletId + ' with correlationId: ' + correlationId + '...');
