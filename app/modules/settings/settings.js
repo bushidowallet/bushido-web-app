@@ -13,7 +13,7 @@ settings.config(function($stateProvider) {
                 'sidebar': {
                     templateUrl: '/modules/shared/sidebar.html',
                     controller: function($scope, walletModel, walletManager) {
-                        $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
+                        $scope.$watch(function () { return walletModel.selectedAccount; }, function (newValue, oldValue) {
                             if (newValue !== oldValue) {
                                 walletManager.save();
                             }
@@ -40,17 +40,15 @@ settings.config(function($stateProvider) {
                         };
                         $scope.createAccount = function() {
                             var url = $scope.config.urlBase + '/api/v2/wallet/' + walletModel.selectedWallet.key;
-                            $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($cookieStore.get('username') + ':' + $cookieStore.get('password'));
+                            $http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode($cookieStore.get('username') + ':' + $cookieStore.get('password'));
                             var acc = { 'name': $scope.newaccountname };
                             $http.post(url, JSON.stringify(acc)).success(function(data) {
-                                if (data.payload != null) {
+                                if (data.payload) {
                                     $('#createAccountModal').modal('hide');
                                     walletManager.update(data.payload);
                                     run();
-                                } else if (response.errors) {
-
                                 }
-                            }).error(function(data) {
+                            }).error(function() {
 
                             });
                         };

@@ -12,7 +12,7 @@ transactions.config(function($stateProvider) {
                 'sidebar': {
                     templateUrl: '/modules/shared/sidebar.html',
                     controller: function($scope, walletModel, walletManager) {
-                        $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
+                        $scope.$watch(function () { return walletModel.selectedAccount; }, function (newValue, oldValue) {
                             if (newValue !== oldValue) {
                                 walletManager.save();
                             }
@@ -23,16 +23,17 @@ transactions.config(function($stateProvider) {
                     templateUrl: '/modules/transactions/main.html',
                     controller: function ($scope, $cookieStore, walletModel) {
                         var run = function run(a) {
+                            var table;
                             var url = $scope.config.urlBase + '/api/v2/wallet/transactions/dt?key=' + $scope.model.selectedWallet.key + "&account=" + a;
                             if ($.fn.dataTable.isDataTable('#transactionsTable')) {
-                                var table = $('#transactionsTable').DataTable({
+                                table = $('#transactionsTable').DataTable({
                                     retrieve: true,
                                     paging: false
                                 });
                                 table.destroy();
                                 //unsubscribe from previous feeds
                             }
-                            var table = $('#transactionsTable').dataTable( {
+                            table = $('#transactionsTable').dataTable( {
                                 "processing": true,
                                 "serverSide": false,
                                 "ajax": {
@@ -55,7 +56,7 @@ transactions.config(function($stateProvider) {
                                         "className": "dt-body-center",
                                         "targets"  : 2,
                                         "data"     : "status",
-                                        "render"   : function (data, type, meta) {
+                                        "render"   : function (data) {
                                             var styleClass = (data == 'Pending') ? 'txstat pending' : 'txstat';
                                             return '<span class="' + styleClass + '">' + data + '</span>';
                                         }
@@ -64,7 +65,7 @@ transactions.config(function($stateProvider) {
                                         "className": "dt-body-left",
                                         "targets"  : 3,
                                         "data"     : "value",
-                                        "render"   : function (data, type, meta) {
+                                        "render"   : function (data) {
                                             var styleClass = (data > 0) ? 'text-success' : 'text-danger';
                                             var indic = data > 0 ? '+' : '-';
                                             var absData = Math.abs(data);
@@ -111,7 +112,7 @@ transactions.config(function($stateProvider) {
                         };
 
                         angular.element(document).ready(function () {
-                            $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
+                            $scope.$watch(function () { return walletModel.selectedAccount; }, function (newValue, oldValue) {
                                 if (newValue !== oldValue) {
                                     $scope.selectedAccount = newValue;
                                     run(newValue.account);

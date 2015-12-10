@@ -1,7 +1,7 @@
 var help = angular.module('help', ['app', 'ui.router']);
 
 help.factory('helpFieldState', function () {
-    return { email: null }
+    return { email: null };
 });
 
 help.config(function($stateProvider) {
@@ -31,16 +31,16 @@ help.config(function($stateProvider) {
                 var check = function() {
                     $scope.bdisabled = true;
                     var o = $scope.email.match(/\S+@\S+\.\S+/);
-                    if (o != null) {
+                    if (!!o) {
                         $scope.bdisabled  = false;
                     }
                 };
                 $scope.doReset = function() {
                     var url = $scope.config.urlBase + '/api/v2/user/password/reset';
                     var request = {email: $scope.email};
-                    $http.post(url, JSON.stringify(request)).success(function(data) {
+                    $http.post(url, JSON.stringify(request)).success(function() {
                             $state.go('thanks');
-                        }).error(function(data) {
+                        }).error(function() {
                             $state.go('thanks');
                         }
                     );
@@ -53,12 +53,12 @@ help.controller('helpController', ['$scope', '$state', 'appConfig', function ($s
     $scope.config = appConfig.init($scope.env);
     $scope.welcomeScreen = function() {
         renderState('welcome');
-    }
+    };
     $scope.forgotPass = function() {
         renderState('forgotpassword');
-    }
+    };
     var renderState = function (name) {
         $state.go(name);
-    }
+    };
     renderState('welcome');
 }]);

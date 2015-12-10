@@ -1,7 +1,7 @@
 var passw = angular.module('passw', ['app', 'ui.router']);
 
 passw.factory('helpFieldState', function () {
-    return { code: null }
+    return { code: null };
 });
 
 passw.config(function($stateProvider) {
@@ -14,11 +14,11 @@ passw.config(function($stateProvider) {
                      var url = $scope.config.urlBase + '/api/v2/user/password/reset/code';
                      var request = { token: $scope.t, code: $scope.code };
                      $http.post(url, JSON.stringify(request)).success(function(data) {
-                     if ((data.errors == null || data.errors.length == 0) && data.payload != null && data.payload == true) {
+                     if ((!data.errors || data.errors.length === 0) && data.payload && data.payload === true) {
                         $state.go('password');
                      } else {
 
-                     }}).error(function(data) {
+                     }}).error(function() {
 
                      });
                 };
@@ -47,7 +47,7 @@ passw.config(function($stateProvider) {
                     $scope.bdisabled = true;
                     if ($scope.newpass == $scope.newpass2) {
                         var o = $scope.newpass.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{10,50}$/);
-                        if (o != null) {
+                        if (!!o) {
                             $scope.bdisabled  = false;
                         }
                     }
@@ -62,13 +62,13 @@ passw.config(function($stateProvider) {
                     var url = $scope.config.urlBase + '/api/v2/user/password/reset/confirm';
                     var request = {token: $scope.t, password: $scope.newpass};
                     $http.post(url, JSON.stringify(request)).success(function(data) {
-                        if (data.errors == null || data.errors.length == 0) {
+                        if (!data.errors || data.errors.length === 0) {
                             $scope.reseterror = false;
                             $state.go('thanks');
                         } else {
                             $scope.reseterror = true;
                         }
-                    }).error(function(data) {
+                    }).error(function() {
                         $scope.reseterror = true;
                     });
                 };
@@ -77,20 +77,20 @@ passw.config(function($stateProvider) {
         .state('thanks', {
             name: 'thanks',
             templateUrl: "/modules/password/thanks.html"
-        })
+        });
 });
 
 passw.controller('passwController', ['$scope', '$http', '$state', 'appConfig', function ($scope, $http, $state, appConfig) {
     $scope.env = getEnv();
-    $scope.t = $.QueryString['t'];
+    $scope.t = $.QueryString.t;
     $scope.config = appConfig.init($scope.env);
     var init = function() {
         var url = $scope.config.urlBase + '/api/v2/user/password/reset/init';
         var request = {token: $scope.t};
         $http.post(url, JSON.stringify(request)).success(function(data) {
-            if (data.errors == null || data.errors.length == 0) {
+            if (!data.errors || data.errors.length === 0) {
                 $scope.reseterror = false;
-                if (data.payload == true) {
+                if (data.payload === true) {
                     $state.go('code');
                 } else {
                     $state.go('password');
@@ -98,10 +98,10 @@ passw.controller('passwController', ['$scope', '$http', '$state', 'appConfig', f
             } else {
                 $scope.reseterror = true;
             }
-        }).error(function(data) {
+        }).error(function() {
             $scope.reseterror = true;
         });
-    }
+    };
     angular.element(document).ready(function () {
         init();
     });

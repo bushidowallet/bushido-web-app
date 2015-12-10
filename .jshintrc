@@ -23,7 +23,8 @@
               "ECKey",
               "Crypto",
               "Base58",
-              "getSECCurveByName"
+              "getSECCurveByName",
+              "jsSHA"
 
   ]
 }

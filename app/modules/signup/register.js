@@ -11,7 +11,7 @@ register.factory('signupModel', function () {
         phone: null,
         countryCode: null,
         walletId: null
-    }
+    };
 });
 
 register.config(function($stateProvider) {
@@ -34,7 +34,7 @@ register.config(function($stateProvider) {
                 $scope.doRegisterOrganization = function() {
                     signupModel.regCode = $scope.regCode;
                     $state.go('organizationSetup');
-                }
+                };
             }
         })
         .state('organizationSetup', {
@@ -43,22 +43,22 @@ register.config(function($stateProvider) {
             controller: function ($scope, signupModel, $state, $http) {
                 var check = function (str) {
                     if (str.length < 5) {
-                        return false
+                        return false;
                     }
                     return true;
                 };
                 $scope.doCreateOrganization = function() {
-                    if (check($scope.organizationId) == true) {
+                    if (check($scope.organizationId) === true) {
                         var organization = {key: $scope.organizationId, name: $scope.organizationName, apiKey: "", regCode: signupModel.regCode};
                         $http.post($scope.config.urlBase + '/api/v2/registration/organization', JSON.stringify(organization)).success(function (data) {
-                            if (data.payload != null && data.errors == null) {
+                            if (data.payload && !data.errors) {
                                 signupModel.organizationId = $scope.organizationId;
                                 $state.go('userSetup');
                             } else if (data.errors) {
                                 var errorCode = data.errors[0].code;
                                 var msg = null;
                                 if (errorCode == 10) {
-                                    msg = "Organization Id " + $scope.organizationId + " already exists. Pick a different Organization Id."
+                                    msg = "Organization Id " + $scope.organizationId + " already exists. Pick a different Organization Id.";
                                 } else if (errorCode == 18) {
                                     msg = "Invalid Trial Code provided.";
                                 }
@@ -78,7 +78,7 @@ register.config(function($stateProvider) {
             templateUrl: "/modules/signup/user.html",
             controller: function ($scope, signupModel, $state, $http) {
                 var isValidUserId = function (user) {
-                    if (user == null || user.length < 5) {
+                    if (!user || user.length < 5) {
                         return false;
                     }
                     return true;
@@ -86,24 +86,24 @@ register.config(function($stateProvider) {
                 var isValidEmail = function (email) {
                     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
                     return regex.test(email);
-                }
+                };
                 var isValidPassword = function (pass) {
                     var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{10,50}$/;
                     return regex.test(pass);
-                }
+                };
                 var isValidPhone = function (phone) {
                     var regex = /^[0-9]{8,15}$/;
                     return regex.test(phone);
-                }
+                };
                 var isValidCountryCode = function (countrycode) {
                     var regex = /^[0-9]{1,3}$/;
                     return regex.test(countrycode);
-                }
+                };
                 $scope.doCreateUser = function() {
-                    if (isValidUserId($scope.userId) == true) {
-                        if (isValidPassword($scope.userPassword) == true) {
-                            if (isValidEmail($scope.userEmail) == true) {
-                                if (isValidPhone($scope.userPhone) == true) {
+                    if (isValidUserId($scope.userId) === true) {
+                        if (isValidPassword($scope.userPassword) === true) {
+                            if (isValidEmail($scope.userEmail) === true) {
+                                if (isValidPhone($scope.userPhone) === true) {
                                     if (isValidCountryCode($scope.userPhoneCountryCode)) {
                                         var user = {
                                             firstName: $scope.firstName,
@@ -117,7 +117,7 @@ register.config(function($stateProvider) {
                                             countryCode: $scope.userPhoneCountryCode
                                         };
                                         $http.post($scope.config.urlBase + '/api/v2/registration/user', JSON.stringify(user)).success(function (data) {
-                                            if (data.payload != null && data.errors == null) {
+                                            if (data.payload && !data.errors) {
                                                 signupModel.firstName = user.firstName;
                                                 signupModel.lastName = user.lastName;
                                                 signupModel.userId = user.username;
@@ -161,7 +161,7 @@ register.config(function($stateProvider) {
                         $scope.userError = true;
                         $scope.errorMessage = "User Id needs to have at least 5 characters.";
                     }
-                }
+                };
             }
         })
         .state('walletSetup', {
@@ -176,25 +176,25 @@ register.config(function($stateProvider) {
                 };
                 var check = function (str) {
                     if (str.length < 5) {
-                        return false
+                        return false;
                     }
                     return true;
                 };
                 $scope.doCreateWallet = function() {
-                    if (checkEntropy($scope.walletEntropy) == true) {
-                        if (check($scope.walletId) == true) {
+                    if (checkEntropy($scope.walletEntropy) === true) {
+                        if (check($scope.walletId) === true) {
                             var s = [];
                             s.push({key: 'compressedKeys', value: true});
                             s.push({key: 'passphrase', value: $scope.walletEntropy});
                             s.push({key: 'instruments', value: 'BTCPLN'});
                             var wallet = {key: $scope.walletId, owner: signupModel.userId, settings: s, accounts: [], regCode: signupModel.regCode};
                             $http.post($scope.config.urlBase + '/api/v2/registration/wallet', JSON.stringify(wallet)).success(function (data) {
-                                if (data.payload != null && data.errors == null) {
+                                if (data.payload && !data.errors) {
                                     signupModel.walletId = wallet.key;
                                     $state.go('thanks');
                                 } else if (data.errors) {
                                     var errorCode = data.errors[0].code;
-                                    var msg = null
+                                    var msg = null;
                                     if (errorCode == 1) {
                                         msg = "Could not create a wallet. Pick a different Wallet Id.";
                                     } else if (errorCode == 14) {
@@ -214,7 +214,7 @@ register.config(function($stateProvider) {
                         $scope.walletError = true;
                         $scope.errorMessage = "Wallet Entropy needs to have at least 20 characters.";
                     }
-                }
+                };
             }
         })
         .state('thanks', {
@@ -226,28 +226,28 @@ register.config(function($stateProvider) {
                 $scope.organizationId = signupModel.organizationId;
                 $scope.email = signupModel.email;
             }
-        })
+        });
 });
 register.controller('registerController', ['$scope', '$state', 'appConfig', function ($scope, $state, appConfig) {
     $scope.env = getEnv();
     $scope.config = appConfig.init($scope.env);
     $scope.welcomeScreen = function() {
         renderState('welcome');
-    }
+    };
     $scope.code = function() {
         renderState('code');
-    }
+    };
     $scope.organizationSetup = function() {
         renderState('organizationSetup');
-    }
+    };
     $scope.userSetup = function() {
         renderState('userSetup');
-    }
+    };
     $scope.walletSetup = function() {
         renderState('walletSetup');
-    }
+    };
     var renderState = function (name) {
         $state.go(name);
-    }
+    };
     renderState('welcome');
 }]);
