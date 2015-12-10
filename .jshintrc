@@ -1,5 +1,5 @@
 {
   "undef": true,
   "unused": true,
-  "predef": [ "angular", "console", "document", "QRCode", "WalletApi", "module", "expect", "inject", "window", "describe", "beforeEach", "afterEach", "it", "$", "getEnv", "setTimeout" ]
+  "predef": [ "angular", "console", "document", "QRCode", "WalletApi", "module", "expect", "inject", "window", "describe", "beforeEach", "afterEach", "it", "$", "getEnv", "setTimeout", "SockJS", "Stomp" ]
 }
