@@ -1,3 +1,5 @@
+var WalletApi;
+
 (function() {
 
     /**
@@ -16,7 +18,7 @@
      * @returns {WalletApi}
      * @constructor
      */
-      function WalletApi(serviceUrl,
+    WalletApi = function(serviceUrl,
                          username,
                          password,
                          walletId,
@@ -39,9 +41,9 @@
         this.walletId             = walletId;
         this.sendDestination      = sendDestination;
         this.observers            = observers;
-        this.on_connect = function() {
+        this.on_connect = function(frame) {
             client.subscribe(subscribeDestination + walletId);
-            if (connectCommand) {
+            if (connectCommand != null) {
                 invoke(client, username, password, connectCommand, connectPayload, connectHandler, observers, walletId, sendDestination);
             }
         };
@@ -51,7 +53,7 @@
         client.onreceive = function(m) {
             var payload = JSON.parse(m.body);
             var index   = -1;
-            if (observers) {
+            if (observers != null) {
                 for (var i = 0; i < observers.length; i++) {
                     if (observers[i].type == 'notification') {
                         if (observers[i].command == payload.command) {
@@ -88,7 +90,7 @@
             'walletId'        : this.walletId,
             'sendDestination' : this.sendDestination
         };
-    }
+    };
 
     WalletApi.prototype.connect = function() {
         this.client.connect(this.serviceUser, this.servicePassword, this.on_connect, this.on_error, '/');
@@ -119,10 +121,10 @@
     };
 
     function invoke(client, username, password, command, payload, handler, observers, walletId, sendDestination, correlationId) {
-        if (!correlationId) {
+        if (correlationId == null) {
             correlationId = generateUUID();
         }
-        if (handler) {
+        if (handler != null) {
             observers.push(new MessageListener(correlationId, command, handler, 'rpc'));
         }
         console.log('Invoking ' + command + ' on wallet ' + walletId + ' with correlationId: ' + correlationId + '...');
