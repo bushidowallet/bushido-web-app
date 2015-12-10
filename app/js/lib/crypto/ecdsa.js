@@ -1,3 +1,5 @@
+/* jshint undef: false */
+
 function integerToBytes(i, len) {
   var bytes = i.toByteArrayUnsigned();
 
@@ -8,7 +10,7 @@ function integerToBytes(i, len) {
   }
 
   return bytes;
-};
+}
 
 ECFieldElementFp.prototype.getByteLength = function () {
   return Math.floor((this.toBigInteger().bitLength() + 7) / 8);
@@ -42,7 +44,6 @@ ECPointFp.prototype.getEncoded = function (compressed) {
 };
 
 ECPointFp.decodeFrom = function (curve, enc) {
-  var type = enc[0];
   var dataLen = enc.length-1;
 
   // Extract x and y as byte arrays
@@ -86,7 +87,7 @@ ECPointFp.prototype.add2D = function (b) {
 
 ECPointFp.prototype.twice2D = function () {
   if (this.isInfinity()) return this;
-  if (this.y.toBigInteger().signum() == 0) {
+  if (this.y.toBigInteger().signum() === 0) {
     // if y1 == 0, then (x1, y1) == (x1, -y1)
     // and hence this = -this and thus 2(x1, y1) == infinity
     return this.curve.getInfinity();
@@ -104,7 +105,7 @@ ECPointFp.prototype.twice2D = function () {
 
 ECPointFp.prototype.multiply2D = function (k) {
   if(this.isInfinity()) return this;
-  if(k.signum() == 0) return this.curve.getInfinity();
+  if(k.signum() === 0) return this.curve.getInfinity();
 
   var e = k;
   var h = e.multiply(new BigInteger("3"));
@@ -183,11 +184,6 @@ ECPointFp.prototype.validate = function () {
   return true;
 };
 
-function dmp(v) {
-  if (!(v instanceof BigInteger)) v = v.toBigInteger();
-  return Crypto.util.bytesToHex(v.toByteArrayUnsigned());
-};
-
 ECDSA = (function () {
   var ecparams = getSECCurveByName("secp256k1");
   var rng = new SecureRandom();
@@ -219,7 +215,7 @@ ECDSA = (function () {
     }
 
     return R;
-  };
+  }
 
   var ECDSA = {
     getBigRandom: function (limit) {
@@ -340,7 +336,7 @@ ECDSA = (function () {
 
       cursor = 2;
       if (sig[cursor] != 0x02)
-        throw new Error("First element in signature must be a DERInteger");;
+        throw new Error("First element in signature must be a DERInteger");
       var rBa = sig.slice(cursor+2, cursor+2+sig[cursor+1]);
 
       cursor += 2+sig[cursor+1];
@@ -417,7 +413,6 @@ ECDSA = (function () {
       var alpha = x.multiply(x).multiply(x).add(a.multiply(x)).add(b).mod(p);
       var beta = alpha.modPow(P_OVER_FOUR, p);
 
-      var xorOdd = beta.isEven() ? (i % 2) : ((i+1) % 2);
       // If beta is even, but y isn't or vice versa, then convert it,
       // otherwise we're done and y == beta.
       var y = (beta.isEven() ? !isYEven : isYEven) ? beta : p.subtract(beta);
