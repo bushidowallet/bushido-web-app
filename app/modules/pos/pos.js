@@ -17,7 +17,7 @@ pos.config(function($stateProvider) {
                             function makeCode (t) {
                                 qrcode.makeCode(t);
                             }
-                            var walletApi = new WalletApi($scope.config.socketServerUrl,
+                            new WalletApi($scope.config.socketServerUrl,
                                 'pos',
                                 'pos',
                                 $scope.walletId,
@@ -32,7 +32,7 @@ pos.config(function($stateProvider) {
                             function getAddressHandler (message) {
                                 $scope.currentAddress = message.payload.currentAddress;
                                 $scope.$apply(function(){
-                                    if ($scope.showAddr == false) {
+                                    if (!$scope.showAddr) {
                                         $scope.label = "Scan code to pay...";
                                     } else {
                                         $scope.label = $scope.currentAddress;
@@ -42,15 +42,15 @@ pos.config(function($stateProvider) {
                             }
                             function balanceChangeHandler (message) {
                                 var newTransaction = message.payload.tx;
-                                for (var i = 0; i < newTransaction.outputs.length; i++) {
-                                    if (newTransaction.outputs[i].toAddress == $scope.currentAddress) {
+                                function checkOutput(output) {
+                                    if (output.toAddress == $scope.currentAddress) {
                                         $scope.$apply(function () {
                                             $scope.label = "Thanks for your payment!";
                                         });
                                         setTimeout(function () {
                                             $scope.currentAddress = message.payload.currentAddress;
                                             $scope.$apply(function(){
-                                                if ($scope.showAddr == false) {
+                                                if (!$scope.showAddr) {
                                                     $scope.label = "Scan code to pay...";
                                                 } else {
                                                     $scope.label = $scope.currentAddress;
@@ -59,6 +59,9 @@ pos.config(function($stateProvider) {
                                             makeCode($scope.currentAddress);
                                         }, 10000);
                                     }
+                                }
+                                for (var i = 0; i < newTransaction.outputs.length; i++) {
+                                    checkOutput(newTransaction.outputs[i]);
                                 }
                             }
                         };
@@ -77,11 +80,11 @@ pos.config(function($stateProvider) {
 });
 
 pos.controller('posController', ['$state', '$scope', 'appConfig', function ($state, $scope, appConfig) {
-    $scope.walletId = $.QueryString["walletId"];
-    $scope.showLogo = ($.QueryString["logo"] == 'true') ? true: false;
-    $scope.showAddr = ($.QueryString["showAddr"] == 'true') ? true : false;
+    $scope.walletId = $.QueryString.walletId;
+    $scope.showLogo = $.QueryString.logo == 'true';
+    $scope.showAddr = $.QueryString.showAddr == 'true';
     $scope.env = getEnv();
-    $scope.account  = parseInt($.QueryString["account"], 10);
+    $scope.account = parseInt($.QueryString.account, 10);
     $scope.config = appConfig.init($scope.env);
     $state.go('main');
 }]);

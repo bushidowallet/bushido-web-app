@@ -1,3 +1,5 @@
+/* jshint undef: false */
+
 var exportKeys = angular.module('exportKeys', ['app', 'ui.router']);
 
 exportKeys.config(function($stateProvider) {
@@ -11,7 +13,7 @@ exportKeys.config(function($stateProvider) {
                 'sidebar': {
                     templateUrl: '/modules/shared/sidebar.html',
                     controller: function($scope, walletModel, walletManager) {
-                        $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
+                        $scope.$watch(function () { return walletModel.selectedAccount; }, function (newValue, oldValue) {
                             if (newValue !== oldValue) {
                                 walletManager.save();
                             }
@@ -33,7 +35,7 @@ exportKeys.config(function($stateProvider) {
                                 //unsubscribe from previous feeds
                             }
                             $.fn.dataTableExt.sErrMode = 'mute';
-                            var table = $('#keysTable').dataTable( {
+                            table = $('#keysTable').dataTable( {
                                 dom: 'T<"clear">lfrtip',
                                 tableTools: {
                                     "aButtons": [ 'copy' ]
@@ -71,7 +73,7 @@ exportKeys.config(function($stateProvider) {
                                         }
                                     }
                                     var rootKeyHash = $cookieStore.get('rootKeyHash');
-                                    if (rootKeyHash != null) {
+                                    if (rootKeyHash) {
                                         var rootKey = new ExtendedKey(rootKeyHash, compressed);
                                         var keygen = new KeyGen(compressed);
                                         var wif = keygen.run(data, rootKey);
@@ -85,7 +87,7 @@ exportKeys.config(function($stateProvider) {
                             });
                         };
                         angular.element(document).ready(function () {
-                            $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
+                            $scope.$watch(function () { return walletModel.selectedAccount; }, function (newValue, oldValue) {
                                 if (newValue !== oldValue) {
                                     $scope.selectedAccount = newValue;
                                     run(newValue.account);

@@ -13,7 +13,7 @@ docs.config(function($stateProvider) {
                 'sidebar': {
                     templateUrl: '/modules/shared/sidebar.html',
                     controller: function($scope, walletModel, walletManager) {
-                        $scope.$watch(function () { return walletModel.selectedAccount }, function (newValue, oldValue) {
+                        $scope.$watch(function () { return walletModel.selectedAccount; }, function (newValue, oldValue) {
                             if (newValue !== oldValue) {
                                 walletManager.save();
                             }

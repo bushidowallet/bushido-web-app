@@ -1,5 +1,29 @@
 {
   "undef": true,
   "unused": true,
-  "predef": [ "angular", "console", "document", "QRCode", "WalletApi", "module", "expect", "inject", "window", "describe", "beforeEach", "afterEach", "it", "$", "getEnv", "setTimeout", "SockJS", "Stomp" ]
+  "predef": [ "angular",
+              "console",
+              "document",
+              "QRCode",
+              "WalletApi",
+              "module",
+              "expect",
+              "inject",
+              "window",
+              "describe",
+              "beforeEach",
+              "afterEach",
+              "it",
+              "$",
+              "getEnv",
+              "setTimeout",
+              "SockJS",
+              "Stomp",
+              "Util",
+              "ECKey",
+              "Crypto",
+              "Base58",
+              "getSECCurveByName"
+
+  ]
 }

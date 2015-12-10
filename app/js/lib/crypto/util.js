@@ -1,3 +1,5 @@
+/* jshint undef: false */
+
 // BigInteger monkey patching
 BigInteger.valueOf = nbv;
 
@@ -10,7 +12,7 @@ BigInteger.valueOf = nbv;
 BigInteger.prototype.toByteArrayUnsigned = function () {
     var ba = this.abs().toByteArray();
     if (ba.length) {
-        if (ba[0] == 0) {
+        if (ba[0] === 0) {
             ba = ba.slice(1);
         }
         return ba.map(function (v) {

@@ -1,8 +1,12 @@
-ECKey = (function () {
+/* jshint undef: false */
+
+var ECKey;
+
+(function () {
 
   var ecparams = getSECCurveByName("secp256k1");
 
-  var ECKey = function (input) {
+  ECKey = function (input) {
     if (Util.isArray(input)) {
       this.priv = BigInteger.fromByteArrayUnsigned(input);
     }
@@ -19,4 +23,5 @@ ECKey = (function () {
   };
 
   return ECKey;
+
 })();

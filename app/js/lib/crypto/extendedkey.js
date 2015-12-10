@@ -1,14 +1,15 @@
 /**
  * Created by Jesion on 2015-02-09.
  */
+
+/* jshint undef: false */
+
 var ExtendedKey;
 
 (function() {
 
     ExtendedKey = function(keyHash, compressed) {
-        if (keyHash != null) {
-            var lhex = keyHash.slice(0, 64);
-            var rhex = keyHash.slice(64, 128);
+        if (keyHash) {
             var l = Util.hexToBytes(keyHash.slice(0, 64));
             var r = Util.hexToBytes(keyHash.slice(64, 128));
             var ecKey = new ECKey(l);
@@ -34,7 +35,7 @@ var ExtendedKey;
             'chainCode': this.chainCode,
             'ecKey': this.ecKey
         };
-    }
+    };
 
     ExtendedKey.prototype.getPrivateKey = function() {
         var p = [];
@@ -57,14 +58,14 @@ var ExtendedKey;
         }
         p = p.concat(k);
         return p;
-    }
+    };
 
     ExtendedKey.prototype.serializePrivate = function (keyBytes) {
         var hash = Crypto.SHA256( Crypto.SHA256( keyBytes, { asBytes: true } ), { asBytes: true } );
         var checksum = hash.slice(0, 4);
         var data = keyBytes.concat(checksum);
         return Base58.encode(data);
-    }
+    };
 
     ExtendedKey.prototype.derive = function (i) {
         var ib = [];
@@ -79,10 +80,9 @@ var ExtendedKey;
         var hash = j.getHMAC(Crypto.util.bytesToHex(this.chainCode), "HEX", "SHA-512", "HEX");
         var l = new BigInteger(hash.slice(0, 64), 16);
         var r = Crypto.util.hexToBytes(hash.slice(64, 128));
-        var curve = ecparams.getCurve();
         var k = l.add(this.ecKey.priv).mod(ecparams.getN());
 
-        child = new ExtendedKey();
+        var child = new ExtendedKey();
         child.chainCode  = r;
         child.ecKey = new ECKey(k.toByteArrayUnsigned());
         child.ecKey.pub = child.ecKey.getPubPoint();
@@ -95,17 +95,17 @@ var ExtendedKey;
         child.ecKey.pubKeyHash = Util.sha256ripe160(child.ecKey.pub.getEncoded(this.ecKey.compressed));
 
         return child;
-    }
+    };
 
     ExtendedKey.prototype.getWif = function() {
         var bytes;
-        if (this.ecKey.compressed == true) {
+        if (this.ecKey.compressed === true) {
             bytes = [0+0x80].concat(this.ecKey.priv.toByteArrayUnsigned()).concat([1]);
         }   else {
             bytes = [0+0x80].concat(this.ecKey.priv.toByteArrayUnsigned());
         }
         var checksum = Crypto.SHA256(Crypto.SHA256(bytes, {asBytes: true}), {asBytes: true}).slice(0, 4);
         return Base58.encode(bytes.concat(checksum));
-    }
+    };
 
 })();
