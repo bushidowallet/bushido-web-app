@@ -22,13 +22,13 @@ gulp.task('test-local', function (done) {
 });
 
 gulp.task('jshint', function() {
-    return gulp.src(['./app/js/*.js', './app/modules/*/*.js'])
+    return gulp.src(['./src/js/*.js', './src/modules/*/*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter(stylish));
 });
 
 gulp.task('styles', function() {
-    return gulp.src('./app/css/*.css')
+    return gulp.src('./src/css/*.css')
         .pipe(sourcemaps.init())
         .pipe(minifyCss())
         .pipe(sourcemaps.write('./', {addComment: false}))
