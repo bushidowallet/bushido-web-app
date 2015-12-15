@@ -51,6 +51,11 @@ gulp.task('js-uglify', function() {
         .pipe(gulp.dest('dist/js'));
 });
 
+gulp.task('images', function() {
+    gulp.src('./src/images/*.*')
+        .pipe(gulp.dest('dist/images'));
+});
+
 gulp.task('default', ['clean'], function() {
-    gulp.start('styles', 'js-uglify', 'test', 'jshint');
+    gulp.start('styles', 'js-uglify', 'images', 'test', 'jshint');
 });
