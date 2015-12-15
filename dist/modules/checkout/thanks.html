@@ -1,0 +1,20 @@
+<div class="panel-body">
+    <h1>{{amount}} BTC</h1>
+    <h1 ng-show="showLocal">{{localAmount}} {{instrumentLabel}}</h1>
+    <div style="padding-top: 20px">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="150"
+            height="150"
+            viewBox="0 0 150 150">
+            <circle cx="75" cy="75" r="75" stroke-width="0" fill="green"/>
+            <g transform="translate(44,40)">
+                <path d="M54 8l-30 30-14-14-10 10 24 24 40-40z" fill="#FFFFFF"></path>
+            </g>
+            <text x="56" y="127" fill="white" style="font-size: 17px">Paid!</text>
+        </svg>
+        </br>
+        <div style="padding-top: 20px; padding-bottom: 20px">
+            <button class="btn btn-default" ng-click="newTransaction()">New Transaction</button>
+        </div>
+    </div>
+</div>

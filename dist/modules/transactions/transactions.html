@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="transactions" ng-controller="transactionsController">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Bushido Manangement And Analytics</title>
+    <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="/components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/dataTables.custom.css" rel="stylesheet">
+    <link href="/css/background.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+</head>
+<body>
+    <div id="wrapper">
+        <canvas id="canvas" height="971" width="1920"></canvas>
+        <nav class="navbar navbar-default navbar-static-top topbar" role="navigation">
+            <div class="navbar-header" style="background-color: #1574A8">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="wallet.html" style="color:#ffffff">Bushido Manangement And Analytics</a>
+            </div>
+            <div ui-view="topbar"></div>
+            <div ui-view="sidebar"></div>
+        </nav>
+        <div ui-view="content"></div>
+    </div>
+    <script src="/components/jquery/dist/jquery.min.js"></script>
+    <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/components/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="/components/angular/angular.min.js"></script>
+    <script src="/components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="/components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/components/sockjs-client/dist/sockjs-0.3.4.min.js"></script>
+    <script src="/components/stomp-websocket/lib/stomp.min.js"></script>
+    <script src="/components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="/js/app.min.js"></script>
+    <script src="/js/walletapi.min.js"></script>
+    <script src="/js/background.min.js"></script>
+    <script src="transactions.js"></script>
+</body>
+</html>

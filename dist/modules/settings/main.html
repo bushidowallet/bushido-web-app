@@ -1,0 +1,85 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header" style="color:#ffffff">Your Wallet Settings</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Settings
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label>Passphrase</label>
+                                    <input class="form-control" ng-model="passphrase">
+                                    <p class="help-block">Your wallet passphrase. Make as long as possible.</p>
+                                    <button type="button" class="btn btn-default" ng-click="save()">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label>Accounts</label>
+                                    <ul>
+                                        <li ng-repeat="account in model.selectedWallet.accounts">
+                                            {{account.account}} : {{account.name}}
+                                        </li>
+                                    </ul>
+                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createAccountModal">Create New Account</button>
+                                    <div class="modal fade" id="createAccountModal" tabindex="-1" role="dialog" aria-labelledby="createAccountModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="createAccountModalLabel">Create New Account</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label>Account Name</label>
+                                                        <input class="form-control" ng-model="newaccountname">
+                                                        <p class="help-block">Provide a unique account name</p>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Discard</button>
+                                                    <button type="button" class="btn btn-primary" ng-click="createAccount()">Create</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label>Key Compatibility</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input disabled type="radio" name="compatibility" id="compatibility1" data-ng-model="compressed" data-ng-value="true">Compressed
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input disabled type="radio" name="compatibility" id="compatibility2" data-ng-model="compressed" data-ng-value="false">Uncompressed
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="panel-body">
+    <form id="loginFrm" role="form" novalidate>
+        <div class="form-group">
+            <input class="form-control" ng-model="userIdOrEmail" placeholder="Your User Id or E-mail" id="userIdOrEmail" name="userIdOrEmail" type="text" autofocus>
+        </div>
+        <div class="form-group">
+            <input class="form-control" ng-model="password" placeholder="Password" name="password" type="{{inputType}}">
+        </div>
+        <button style="background-color: #0978b8" ng-click="doLogin()" id="login" class="btn btn-lg btn-success btn-block">Log In</button>
+        <div class="container-fluid" style="padding-left: 0px; padding-right: 0px; padding-top: 10px">
+            <div class="col-md-6" style="padding-left: 0px">
+                <div class="checkbox" style="margin-top: 0px">
+                    <label>
+                        <input checked type="checkbox" id="checkbox" ng-model="passwordCheckbox" ng-click="hideShowPassword()"/> Show password
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: right; padding-right: 0px">
+                <a href="help.html">Need help?</a>
+            </div>
+        </div>
+        <div class="alert alert-danger" style="margin-top: 0px; margin-bottom: 0px;" ng-show="loginerror">{{errorMessage}}</div>
+        <div class="alert alert-danger" style="margin-top: 0px; margin-bottom: 0px;" ng-show="loginerrorverify">We recognized you, however your account is not verified. <a class="alert-link" href="verify.html">Verify your account</a></div>
+    </form>
+</div>

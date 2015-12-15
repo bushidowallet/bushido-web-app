@@ -1,0 +1,32 @@
+<ul class="nav navbar-top-links navbar-right">
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="background-color: transparent">
+            <i class="fa fa-list fa-fw" style="color: #ffffff"></i>  <i class="fa fa-caret-down" style="color: #ffffff"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-messages">
+            <p align="center" style="padding-top: 8px;">Your wallets: </p>
+            <li ng-repeat="wallet in model.wallets">
+                <a href="#" ng-click="open(wallet)">
+                    <div>
+                        <i class="fa fa-money fa-fw"></i> <strong>{{wallet.key}}</strong>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="background-color: transparent">
+            <i class="fa fa-user fa-fw" style="color: #ffffff"></i>  <i class="fa fa-caret-down" style="color: #ffffff"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+            <li><a href="settings.html"><i class="fa fa-gear fa-fw"></i> Settings</a>
+            </li>
+            <li class="divider"></li>
+            <li><a href="user.html"><i class="fa fa-user fa-fw"></i> User Profile</a>
+            </li>
+            <li class="divider"></li>
+            <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+            </li>
+        </ul>
+    </li>
+</ul>

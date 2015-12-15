@@ -1,0 +1,15 @@
+<div class="panel-body">
+
+    <form role="form" novalidate>
+        <fieldset>
+            <div class="form-group">
+                <label>Trial Code</label>
+                <input class="form-control" ng-model="regCode" placeholder="Enter a Trial Code">
+                <p class="help-block">Type in a code provided by us and press one of the buttons below.</p>
+            </div>
+        </fieldset>
+    </form>
+    <button style="background-color: #0978b8" ng-click="doRegisterIndividual()"class="btn btn-lg btn-success btn-block">I am an Individual</button>
+    <button style="background-color: #0978b8" ng-click="doRegisterOrganization()"class="btn btn-lg btn-success btn-block">I represent an Organization</button>
+
+</div>
