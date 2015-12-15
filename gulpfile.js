@@ -4,6 +4,7 @@ var stylish = require('jshint-stylish');
 var Server = require('karma').Server;
 var minifyCss = require('gulp-minify-css');
 var sourcemaps = require('gulp-sourcemaps');
+var del = require('del');
 
 gulp.task('test', function (done) {
     new Server({
@@ -35,4 +36,10 @@ gulp.task('styles', function() {
         .pipe(gulp.dest('dist/css'));
 });
 
-gulp.task('default', ['styles', 'test', 'jshint']);
+gulp.task('clean', function() {
+    return del(['dist']);
+});
+
+gulp.task('default', ['clean'], function() {
+    gulp.start('styles', 'test', 'jshint');
+});
