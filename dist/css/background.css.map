@@ -1,0 +1,1 @@
+{"version":3,"sources":["background.css"],"names":[],"mappings":"AAAA,QAEI,SAAS,SACT,OAAO,KACP,MAAM,KACN,KAAK,EACL,IAAI","file":"background.css","sourcesContent":["#canvas\r\n{\r\n    position:absolute;\r\n    height:100%;\r\n    width:100%;\r\n    left:0;\r\n    top:0\r\n}"],"sourceRoot":"/source/"}

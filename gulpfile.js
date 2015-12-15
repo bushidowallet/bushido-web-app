@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var Server = require('karma').Server;
+var minifyCss = require('gulp-minify-css');
+var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('test', function (done) {
     new Server({
@@ -25,4 +27,12 @@ gulp.task('jshint', function() {
         .pipe(jshint.reporter(stylish));
 });
 
-gulp.task('default', ['test', 'jshint']);
+gulp.task('styles', function() {
+    return gulp.src('./app/css/*.css')
+        .pipe(sourcemaps.init())
+        .pipe(minifyCss())
+        .pipe(sourcemaps.write('./', {addComment: false}))
+        .pipe(gulp.dest('dist/css'));
+});
+
+gulp.task('default', ['styles', 'test', 'jshint']);

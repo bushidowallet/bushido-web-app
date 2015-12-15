@@ -22,8 +22,7 @@ app.config(function($cookiesProvider) {
 })(jQuery);
 
 function getEnv() {
-    //return window.location.hostname == 'localhost' ? 'dev' : 'prod';
-    return 'prod';
+    return window.location.hostname == 'localhost' ? 'dev' : 'prod';
 }
 
 app.factory('appConfig', function () {
