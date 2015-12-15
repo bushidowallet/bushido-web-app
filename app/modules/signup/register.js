@@ -42,7 +42,7 @@ register.config(function($stateProvider) {
             templateUrl: "/modules/signup/organization.html",
             controller: function ($scope, signupModel, $state, $http) {
                 var check = function (str) {
-                    if (str.length < 5) {
+                    if (!str || str.length < 5) {
                         return false;
                     }
                     return true;
