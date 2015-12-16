@@ -46,7 +46,7 @@ gulp.task('clean', function() {
 gulp.task('js-uglify', function() {
     return gulp.src('./src/js/**/*.js')
         .pipe(sourcemaps.init())
-        .pipe(uglify())
+        .pipe(uglify({ mangle: false}))
         .pipe(rename({ extname: '.min.js' }))
         .pipe(sourcemaps.write('./', {addComment: false}))
         .pipe(gulp.dest('dist/js'));
