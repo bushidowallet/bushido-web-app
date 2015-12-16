@@ -29,13 +29,10 @@ describe('verifyAccount', function() {
            expect($state).toBeDefined();
            expect(appConfig).toBeDefined();
            expect(appConfig.dotPayUrlBase).toEqual('https://ssl.dotpay.pl/t2/?id=447185');
-           expect(appConfig.env).toEqual('dev');
            expect(emailState.name).toEqual('email');
            expect(emailState.templateUrl).toEqual('/modules/account/verify/email.html');
            expect(emailState.controller).toBeDefined();
-           expect(window.location.hostname).toEqual('localhost');
            expect($scope.config).toBeDefined();
-           expect($scope.config.env).toEqual('dev');
         });
     });
 });
