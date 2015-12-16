@@ -57,16 +57,39 @@ gulp.task('copy-images', function() {
         .pipe(gulp.dest('dist/images'));
 });
 
-gulp.task('js-components', function() {
-    gulp.src('./src/components/**/*.min.js')
-        .pipe(flatten({ includeParents: [1, 1]}))
+gulp.task('flatten', function() {
+    gulp.src(['./src/components/**/*.*'])
+        .pipe(flatten({ includeParents: [1, 1] }))
         .pipe(gulp.dest('dist/components'));
 });
 
-gulp.task('css-components', function() {
-    gulp.src(['./src/components/**/*.min.css', './src/components/**/*.map'])
-        .pipe(flatten({ includeParents: [1, 1]}))
-        .pipe(gulp.dest('dist/components'));
+gulp.task('copy-components', function() {
+    gulp.src(['./src/components/angular/*.min.*'])
+        .pipe(gulp.dest('dist/components/angular'));
+    gulp.src(['./src/components/angular-cookies/*.min.*'])
+        .pipe(gulp.dest('dist/components/angular-cookies'));
+    gulp.src(['./src/components/angular-ui-router/release/*.min.*'])
+        .pipe(gulp.dest('dist/components/angular-ui-router'));
+    gulp.src(['./src/components/bootstrap/dist/**/*'])
+        .pipe(gulp.dest('dist/components/bootstrap'));
+    gulp.src(['./src/components/components-font-awesome/**/*'])
+        .pipe(gulp.dest('dist/components/components-font-awesome'));
+    gulp.src(['./src/components/datatables.net/js/*.min.*'])
+        .pipe(gulp.dest('dist/components/datatables.net'));
+    gulp.src(['./src/components/datatables.net-bs/js/*.min.*'])
+        .pipe(gulp.dest('dist/components/datatables.net-bs'));
+    gulp.src(['./src/components/datatables.net-bs/css/*.min.*'])
+        .pipe(gulp.dest('dist/components/datatables.net-bs'));
+    gulp.src(['./src/components/jquery/dist/*.min.*'])
+        .pipe(gulp.dest('dist/components/jquery'));
+    gulp.src(['./src/components/metisMenu/dist/*.min.*'])
+        .pipe(gulp.dest('dist/components/metisMenu'));
+    gulp.src(['./src/components/sockjs-client/dist/*.min.*'])
+        .pipe(gulp.dest('dist/components/sockjs-client'));
+    gulp.src(['./src/components/stomp-websocket/lib/*.min.*'])
+        .pipe(gulp.dest('dist/components/stomp-websocket'));
+    gulp.src(['./src/components/webshim/js-webshim/minified/**/*'])
+        .pipe(gulp.dest('dist/components/js-webshim'));
 });
 
 gulp.task('copy-modules', function() {
@@ -75,5 +98,5 @@ gulp.task('copy-modules', function() {
 });
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('styles', 'js-uglify', 'js-components', 'css-components', 'copy-modules', 'copy-images', 'test', 'jshint');
+    gulp.start('styles', 'js-uglify', 'copy-components', 'copy-modules', 'copy-images', 'test', 'jshint');
 });
