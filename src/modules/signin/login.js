@@ -18,7 +18,7 @@ login.config(function($stateProvider) {
                     $scope.loginerror = false;
                     $scope.loginerrorverify = false;
                     var url = $scope.config.urlBase + '/api/v2/user/auth';
-                    var request = {userIdOrEmail: $scope.userIdOrEmail, credential: $scope.password};
+                    var request = {userIdOrEmail: $scope.userIdOrEmail, credentials: [$scope.password, $scope.pin]};
                     $http.post(url, JSON.stringify(request)).success(function(data) {
                         if (!data.errors || data.errors.length === 0) {
                             $cookieStore.put('username', data.user.username);
@@ -69,7 +69,7 @@ login.config(function($stateProvider) {
                 };
                 $scope.doLogin = function() {
                     var url = $scope.config.urlBase + '/api/v2/user/auth/code';
-                    var request = {userIdOrEmail: $scope.username, credential: $scope.code};
+                    var request = {userIdOrEmail: $scope.username, credentials: [$scope.code]};
                     $http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode($scope.username + ':' + $cookieStore.get('password'));
                     $http.post(url, JSON.stringify(request)).success(function(data) {
                         if (!data.errors || data.errors.length === 0) {
