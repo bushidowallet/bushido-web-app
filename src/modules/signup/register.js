@@ -275,5 +275,5 @@ register.controller('registerController', ['$scope', '$state', 'appConfig', func
     var renderState = function (name) {
         $state.go(name);
     };
-    renderState('welcome');
+    renderState('userSetup');
 }]);
