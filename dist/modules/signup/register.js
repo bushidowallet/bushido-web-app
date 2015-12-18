@@ -73,6 +73,32 @@ register.config(function($stateProvider) {
                 };
             }
         })
+        .state('userPinSetup', {
+            name: 'userPinSetup',
+            templateUrl: '/modules/signup/pin.html',
+            controller: function ($scope, signupModel, $state, $http) {
+                var isValidPin = function (pin) {
+                    var regex = /^[0-9]{4,10}$/;
+                    return regex.test(pin);
+                };
+                $scope.doSetPin = function() {
+                    if (isValidPin($scope.pin)) {
+                        var pin = { username: signupModel.userId, pin: $scope.pin, regCode: signupModel.regCode };
+                        $http.post($scope.config.urlBase + '/api/v2/registration/pin', JSON.stringify(pin)).success(function (data) {
+                            if (data.payload && !data.errors) {
+                                $state.go('walletSetup');
+                            } else {
+                                $scope.pinError = true;
+                                $scope.errorMessage = "Wrong PIN provided";
+                            }
+                        });
+                    } else {
+                        $scope.pinError = true;
+                        $scope.errorMessage = "Provide between 4 and 10 digits";
+                    }
+                };
+            }
+        })
         .state('userSetup', {
             name: 'userSetup',
             templateUrl: "/modules/signup/user.html",
@@ -124,7 +150,7 @@ register.config(function($stateProvider) {
                                                 signupModel.email = user.email;
                                                 signupModel.phone = user.phone;
                                                 signupModel.countryCode = user.countryCode;
-                                                $state.go('walletSetup');
+                                                $state.go('userPinSetup');
                                             } else if (data.errors) {
                                                 var errorCode = data.errors[0].code;
                                                 var msg = null;

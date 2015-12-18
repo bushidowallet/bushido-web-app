@@ -1,0 +1,16 @@
+<div class="panel-body">
+
+    <form role="form" novalidate>
+        <fieldset>
+            <div class="form-group">
+                <label>PIN</label>
+                <input class="form-control" ng-model="pin" placeholder="Enter PIN">
+                <p class="help-block">Type in between 4 and 10 digits as a PIN to secure your money.</p>
+            </div>
+            <button style="background-color: #0978b8" ng-click="doSetPin()"class="btn btn-lg btn-success btn-block">Set PIN</button>
+        </fieldset>
+    </form>
+    <br ng-show="pinError"/>
+    <div ng-show="pinError" style="color: #a94442" align="center">{{errorMessage}}</div>
+
+</div>
