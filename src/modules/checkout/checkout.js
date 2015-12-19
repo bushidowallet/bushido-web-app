@@ -56,8 +56,8 @@ checkout.config(function($stateProvider) {
                         checkOutput(newTransaction.outputs[i]);
                     }
                 }
-                var renderQR = function(a) {
-                    walletApi.invoke('GET_ADDRESS', {'account': a}, getAddressHandler);
+                var renderQR = function(a, pin, appId) {
+                    walletApi.invoke('GET_ADDRESS', {'account': a, 'pin': pin, 'appId': appId}, getAddressHandler);
                     function getAddressHandler (message) {
                         $scope.$apply(function(){
                             $scope.currentAddress = message.payload.currentAddress;
@@ -75,13 +75,13 @@ checkout.config(function($stateProvider) {
                         $scope.localAmount = localAmount;
                         $scope.showLocal = true;
                     });
-                    renderQR($scope.account, qrcode);
+                    renderQR($scope.account, qrcode, $scope.pin, $scope.appId);
                 }
                 var init = function() {
                     if ($scope.instrument) {
                         walletApi.invoke('GET_INSTRUMENT_DATA', null, getInstrumentDataHandler);
                     } else {
-                        renderQR($scope.account);
+                        renderQR($scope.account, null, $scope.pin, $scope.appId);
                     }
                 };
                 angular.element(document).ready(function () {
@@ -115,7 +115,9 @@ checkout.config(function($stateProvider) {
 
 checkout.controller('checkoutController', ['$state', '$scope', 'appConfig', function ($state, $scope, appConfig) {
     $scope.walletId = $.QueryString.walletId;
-    $scope.account  = parseInt($.QueryString.account, 10);
+    $scope.pin = $.QueryString.pin;
+    $scope.appId = 'checkout';
+    $scope.account = parseInt($.QueryString.account, 10);
     $scope.env = getEnv();
     $scope.config = appConfig.init($scope.env);
     $scope.instrument = $.QueryString.instrument;

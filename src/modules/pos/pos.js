@@ -13,7 +13,7 @@ pos.config(function($stateProvider) {
                 'content': { templateUrl: '/modules/pos/main.html',
                     controller: function ($scope) {
                         $scope.label = "Initializing... Please wait...";
-                        var run = function (a, qrcode) {
+                        var run = function (a, qrcode, pin, appId) {
                             function makeCode (t) {
                                 qrcode.makeCode(t);
                             }
@@ -23,7 +23,7 @@ pos.config(function($stateProvider) {
                                 $scope.walletId,
                                 false,
                                 'GET_ADDRESS',
-                                {'account':a},
+                                {'account':a, 'pin': pin, 'appId': appId},
                                 getAddressHandler,
                                 '/exchange/v2e-wallet-updates/',
                                 '/queue/v2wallet')
@@ -71,7 +71,7 @@ pos.config(function($stateProvider) {
                                 height: 180
                             });
                             $('#posBody').css('backgroundColor', '#FFFFFF');
-                            run($scope.account, qrcode);
+                            run($scope.account, qrcode, $scope.pin, $scope.appId);
                         });
                     }
                 }
@@ -81,8 +81,10 @@ pos.config(function($stateProvider) {
 
 pos.controller('posController', ['$state', '$scope', 'appConfig', function ($state, $scope, appConfig) {
     $scope.walletId = $.QueryString.walletId;
+    $scope.pin = $.QueryString.pin;
     $scope.showLogo = $.QueryString.logo == 'true';
     $scope.showAddr = $.QueryString.showAddr == 'true';
+    $scope.appId = 'pos';
     $scope.env = getEnv();
     $scope.account = parseInt($.QueryString.account, 10);
     $scope.config = appConfig.init($scope.env);
