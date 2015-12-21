@@ -75,13 +75,13 @@ checkout.config(function($stateProvider) {
                         $scope.localAmount = localAmount;
                         $scope.showLocal = true;
                     });
-                    renderQR($scope.account, qrcode, $scope.pin, $scope.appId);
+                    renderQR($scope.account, $scope.pin, $scope.appId);
                 }
                 var init = function() {
                     if ($scope.instrument) {
-                        walletApi.invoke('GET_INSTRUMENT_DATA', null, getInstrumentDataHandler);
+                        walletApi.invoke('GET_INSTRUMENT_DATA', {pin: $scope.pin, appId: $scope.appId}, getInstrumentDataHandler);
                     } else {
-                        renderQR($scope.account, null, $scope.pin, $scope.appId);
+                        renderQR($scope.account, $scope.pin, $scope.appId);
                     }
                 };
                 angular.element(document).ready(function () {
