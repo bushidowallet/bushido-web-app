@@ -6,14 +6,10 @@
     }
 </style>
 <div class="panel panel-default" style="width: 100%; border:none; box-shadow: none">
-    <div class="panel-heading" style="background-color: #ffffff; border:none">
-        <img src="/images/logo.png" ng-show="{{showLogo}}"/>
-        <p style="border: none; text-align: center; margin-bottom: 0px" ng-hide="{{showLogo}}">My Bitcoin address</p>
-    </div>
-    <div class="panel-body" style="background-color: white; height: 205px">
+    <div class="panel-body" style="background-color: white; height: 200px">
+	<img src="/images/logo.png" ng-show="{{showLogo}}"/>
+        <p style="font-size: 11px border: none; text-align: center;padding-top:5px; margin-bottom: 15px" ng-hide="{{showLogo}}">My Bitcoin Address</p>
         <div name="qrcodec" id="qrcodec" style="width: 180px; margin: 0 auto"></div>
-    </div>
-    <div class="panel-footer" style="text-align: center; border: none; background-color: transparent">
-        <p>{{label}}</p>
+	<p style="width: 100%; font-size: 11px; margin-top: 20px; text-align: center; border: none; background-color: transparent">{{label}}</p>
     </div>
 </div>
