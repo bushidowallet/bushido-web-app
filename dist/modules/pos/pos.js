@@ -67,8 +67,8 @@ pos.config(function($stateProvider) {
                         };
                         angular.element(document).ready(function () {
                             var qrcode = new QRCode(document.getElementById('qrcodec'), {
-                                width : 180,
-                                height: 180
+                                width : 120,
+                                height: 120
                             });
                             $('#posBody').css('backgroundColor', '#FFFFFF');
                             run($scope.account, qrcode, $scope.pin, $scope.appId);
